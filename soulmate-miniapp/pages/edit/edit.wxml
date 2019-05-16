@@ -1,0 +1,85 @@
+<view class='container'>
+  <view class='top'>
+    <view class='upload_top'>
+      <view class='uploadFile_item uploadFile' bindtap='uploadImg'>
+        <image class='upload_icon big-upload_icon' src='../../images/upload.png' wx:if="{{imgUrls.length < 1}}"></image>
+        <image class='userImg' src='{{imgUrls[0]}}' wx:else></image>
+      </view>
+      <view class='upload_top_right'>
+        <view class='uploadFile_item uploadFile_item_small' bindtap='uploadImg'>
+          <image class='upload_icon' src='../../images/upload.png' wx:if="{{imgUrls.length < 2}}"></image>
+          <image class='userImg' src='{{imgUrls[1]}}' wx:else></image>
+        </view>
+        <view class='uploadFile_item uploadFile_item_small' bindtap='uploadImg'>
+          <image class='upload_icon' src='../../images/upload.png' wx:if="{{imgUrls.length < 3}}"></image>
+          <image class='userImg' src='{{imgUrls[2]}}' wx:else></image>
+        </view>
+      </view>
+    </view>
+    <view class='upload_bottom' wx:if="{{imgUrls.length > 2}}">
+      <view class='uploadFile_item uploadFile_item_small' bindtap='uploadImg'>
+        <image class='upload_icon' src='../../images/upload.png' wx:if="{{imgUrls.length < 4}}"></image>
+          <image class='userImg' src='{{imgUrls[3]}}' wx:else></image>
+      </view>
+      <view class='uploadFile_item uploadFile_item_small' bindtap='uploadImg'>
+        <image class='upload_icon' src='../../images/upload.png' wx:if="{{imgUrls.length < 5}}"></image>
+          <image class='userImg' src='{{imgUrls[4]}}' wx:else></image>
+      </view>
+      <view class='uploadFile_item uploadFile_item_small' bindtap='uploadImg'>
+        <image class='upload_icon' src='../../images/upload.png' wx:if="{{imgUrls.length < 6}}"></image>
+        <image class='userImg' src='{{imgUrls[5]}}' wx:else></image>
+      </view>
+    </view>
+  </view>
+  <view class='form-title'>
+    <view class='txt'>基本信息</view>
+    <view class='edit' bindtap='handlerEdit'>
+      <image src='../../images/user-setting.png'></image>
+    </view>
+  </view>
+  <form bindsubmit="formSubmit" class='fromBox'>
+    <view class='item'>
+      <image class='icon' src='../../images/edit-user.png'></image>
+      <text class='name'>昵称</text>
+      <input type='text' placeholder='请输入昵称' name="nickName" value='{{userInfo.nickName}}' disabled='{{editDisabled}}' />
+    </view>
+    <view class='item item-wx'>
+      <image class='icon' src='../../images/edit-wx.png'></image>
+      <text class='name'>微信号</text>
+      <input type='text' value='{{wxName}}' disabled='true' />
+    </view>
+    <view class='item item-birthday'>
+      <image class='icon' src='../../images/edit-birthday.png'></image>
+      <text class='name'>出生年月</text>
+      <input type='text' placeholder='请输入出生年月' name="birthday" value='{{userInfo.birthday}}' disabled='{{editDisabled}}' />
+    </view>
+    <view class='item item-birthday'>
+      <image class='icon' src='../../images/edit-birthday.png'></image>
+      <text class='name'>星座</text>
+      <input type='text' placeholder='请输入星座' name="constellation" value='{{userInfo.constellation}}' disabled='{{editDisabled}}' />
+    </view>
+    <view class='item item-height'>
+      <image class='icon' src='../../images/edit-height.png'></image>
+      <text class='name'>身高</text>
+      <input type='text' placeholder='请输入身高' name="height" value='{{userInfo.height}}' disabled='{{editDisabled}}' />
+    </view>
+    <view class='item item-school'>
+      <image class='icon' src='../../images/edit-school.png'></image>
+      <text class='name'>毕业院校</text>
+      <input type='text' placeholder='请输入毕业院校' name="school" value='{{userInfo.school}}' disabled='{{editDisabled}}' />
+    </view>
+    <view class='item item-city'>
+      <image class='icon' src='../../images/edit-city.png'></image>
+      <text class='name'>所在城市</text>
+      <input type='text' placeholder='请输入所在城市' name="city" value='{{userInfo.city}}' disabled='{{editDisabled}}' />
+    </view>
+    <view class='item item-interest'>
+      <image class='icon' src='../../images/edit-interest.png'></image>
+      <text class='name'>兴趣爱好</text>
+      <input type='text' placeholder='请输入兴趣爱好' name="interest" value='{{userInfo.interest}}' disabled='{{editDisabled}}' />
+    </view>
+    <view class='bottom'>
+      <button form-type="submit">完成</button>
+    </view>
+  </form>
+</view>

@@ -1,0 +1,1 @@
+var apiUrl = 'https://api.soulmateyuyin.com'

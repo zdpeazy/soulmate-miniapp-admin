@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>网站后台管理模版</title>
+		<link rel="stylesheet" type="text/css" href="../../static/admin/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="../../static/admin/css/admin.css" />
+		<style>
+			.layui-add-question{
+				margin: 20px 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="layui-fluid layui-add-question">
+			<button class="layui-btn layui-btn-normal" id="addQuestion-btn">增加</button>
+		</div>
+		<div class="layui-tab page-content-wrap">
+			<ul class="layui-tab-title">
+				<li class="layui-this">第一次聊天问题清单</li>
+				<li>第二次聊天问题清单</li>
+				<li>第三次聊天问题清单</li>
+				<li>第四次聊天问题清单</li>
+				<li>第五次聊天问题清单</li>
+				<li>第六次聊天问题清单</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<table class="layui-table">
+						<colgroup>
+							<col width="150"><col>
+							<col width="300"><col>
+							<col width="100"><col>
+						</colgroup>
+						<colgroup>
+							<col><col>
+						</colgroup>
+						<colgroup>
+							<col width="150"><col>
+						</colgroup>
+						<tbody id="question-1"></tbody>
+					</table>
+				</div>
+				<div class="layui-tab-item">
+					<table class="layui-table">
+						<colgroup>
+							<col width="150"><col>
+							<col width="300"><col>
+							<col width="100"><col>
+						</colgroup>
+						<tbody id="question-2"></tbody>
+					</table>
+				</div>
+				<div class="layui-tab-item">
+					<table class="layui-table">
+						<colgroup>
+							<col width="150"><col>
+							<col width="300"><col>
+							<col width="100"><col>
+						</colgroup>
+						<tbody id="question-3"></tbody>
+					</table>
+				</div>
+				<div class="layui-tab-item">
+					<table class="layui-table">
+						<colgroup>
+							<col width="150"><col>
+							<col width="300"><col>
+							<col width="100"><col>
+						</colgroup>
+						<tbody id="question-4"></tbody>
+					</table>
+				</div>
+				<div class="layui-tab-item">
+					<table class="layui-table">
+						<colgroup>
+							<col width="150"><col>
+							<col width="300"><col>
+							<col width="100"><col>
+						</colgroup>
+						<tbody id="question-5"></tbody>
+					</table>
+				</div>
+				<div class="layui-tab-item">
+					<table class="layui-table">
+						<colgroup>
+							<col width="150"><col>
+							<col width="300"><col>
+							<col width="100"><col>
+						</colgroup>
+						<tbody id="question-6"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<script src="../../static/admin/layui/layui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/admin/js/common.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/admin/js/apiUrl.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			layui.use(['layer', 'form', 'jquery', 'dialog', 'element'], function(){
+				var $ = layui.$,
+						layer = layui.layer,
+						element = layui.element,
+						form = layui.form,
+						$chatList = $('#chatList');
+						
+				function _chatQuestion (){
+					this.pageNo = 1,
+					this.pageSize = 20;
+					this.currentLength = 0;
+				}
+				_chatQuestion.prototype.init = function(){
+					var _t = this;
+					_t.getQuestionList();
+				}
+				_chatQuestion.prototype.getQuestionList = function(searchParams){
+					var _t = this;
+					$.ajax({
+						url: apiUrl + '/admin/topic/all',
+						type: 'get',
+						success: function(res){
+							if(res.code * 1 != 0){
+								layer.msg(res.message, {time: 1500, icon: 5})
+								return;
+							}
+							_t.renderView(res.data);
+						},
+						fail: function(err){
+							layer.msg(err, {time: 1500, icon: 5})
+						}
+					})
+				}
+				_chatQuestion.prototype.renderView = function(data){
+					var _t = this, chatGetTopicRespList = data.chatGetTopicRespList;
+					for(var i = 0; i < chatGetTopicRespList.length; i ++){
+						var temp = '';
+						var currentQuestionList = chatGetTopicRespList[i].topicDTOList;
+						for(var j = 0; j < currentQuestionList.length; j ++){
+							var strHtml = '<tr>' +
+								'<td>' + j + '</td><td>' + currentQuestionList[j].topic + '</td>' +
+								'<td><button class="layui-btn layui-btn-normal layui-btn-sm editQuestion" data-topicId="' + currentQuestionList[j].topicId + '">编辑</button></td>'
+								'</tr>';
+							temp += strHtml;
+						}
+						$('#question-' + (i + 1)).html(temp);
+
+						_t.bindEvents();
+					}
+				}
+
+				_chatQuestion.prototype.addQuestion = function(topicListId, topic){
+					var _t = this;
+					if(!topicListId){
+						layer.msg('请输入问题话题归属', {time: 1500});
+						return false;
+					}
+					if(topicListId * 1 > 6){
+						layer.msg('问题话题归属为1-6', {time: 1500});
+						return false;
+					}
+					if(!topic){
+						layer.msg('请输入话题内容', {time: 1500});
+						return false;
+					}
+					var params = {
+						topicListId: topicListId,
+						topic: topic
+					}
+					$.ajax({
+						url: apiUrl + '/admin/topic/add',
+						type: 'POST',
+						data: params,
+						success: function(res){
+							if(res.code * 1 != 0){
+								layer.msg(res.message, {time: 1500, icon: 5})
+								return;
+							}
+							layer.msg('添加成功', {time: 1500, icon: 1});
+							_t.getQuestionList();
+						},
+						fail: function(err){
+							layer.msg(err, {time: 1500, icon: 5})
+						}
+					})
+				}
+
+				_chatQuestion.prototype.showModal = function(){
+					var _t = this;
+					var inputContent = '<input type="number" name="topicListId" placeholder="请输入话题归属" autocomplete="off" class="layui-input">' +
+									'<input style="margin-top:10px;" type="text" name="topic" placeholder="请输入话题" autocomplete="off" class="layui-input">'
+					layer.open({
+						content: inputContent,
+						btn: ['提交'],
+						yes: function(index, layero){
+							var topicListId = layero.find('input[name=topicListId]').val(),
+									topic = layero.find('input[name=topic]').val();
+							_t.addQuestion(topicListId, topic)
+						}
+					});
+				}
+
+				_chatQuestion.prototype.editQuestionModal = function(topicId){
+					var _t = this;
+					layer.prompt({title: '编辑问题', formType: 3, placeholder: '输入新的问题',}, function(text, index){
+						var params = {
+							topicId: topicId,
+							topic: text
+						}
+						console.log(params)
+						$.ajax({
+							url: apiUrl + '/admin/topic/edit',
+							type: 'POST',
+							data: params,
+							success: function(res){
+								if(res.code * 1 != 0){
+									layer.msg(res.message, {time: 2000, icon: 5})
+									return;
+								}
+								layer.msg('修改成功', {time: 2000, icon: 1});
+								layer.close(index);
+								setTimeout(function(){ // 数据有延迟
+									_t.getQuestionList();
+								}, 1000)
+								
+							},
+							fail: function(err){
+								layer.msg(err, {time: 1500, icon: 5})
+							}
+						})
+					});
+				}
+
+				_chatQuestion.prototype.bindEvents = function(){
+					var _t = this;
+					$('#addQuestion-btn').click(function(){
+						_t.showModal();
+					})
+
+					$('.editQuestion').unbind('click').click(function(){
+						var topicId = $(this).attr('data-topicId');
+						_t.editQuestionModal(topicId);
+					})
+					// $('.editQuestion').map(function(index, item){
+					// 	$(item).on('click', function(){
+					// 		console.log(1)
+					// 	})
+					// // 	click(function(item, index){
+					// // 	console.log(item)
+					// // 	_t.editQuestionModal();
+					// // })
+					// })
+					
+				} 
+
+				$(function(){
+					var chatQuestion = new _chatQuestion();
+					chatQuestion.init();
+				})
+			})
+		</script>
+				
+	</body>
+
+</html>

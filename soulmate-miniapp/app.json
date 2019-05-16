@@ -1,0 +1,25 @@
+{
+  "pages":[
+    "pages/begin/begin",
+    "pages/personalCenter/personalCenter",
+    "pages/index/index",
+    "pages/chatView/chatView",
+    "pages/user/user",
+    "pages/discover/discover",
+    "pages/chat/chat",
+    "pages/contact/contact",
+    "pages/talking/talking",
+    "pages/edit/edit"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "soulmate",
+    "backgroundColor": "#eee"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于小程序位置接口的效果展示"
+    }
+  }
+}

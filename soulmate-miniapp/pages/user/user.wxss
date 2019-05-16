@@ -1,0 +1,98 @@
+page{
+  background: #f4f4f4;
+}
+.content{
+  position: relative;
+}
+.user_top{
+  padding: 50rpx;
+  background: #fff;
+  position: relative;
+  display: flex;
+}
+.user_top .avatar{
+  width: 150rpx;
+  height: 150rpx;
+}
+.user_top .avatar image{
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+}
+.user_top .info{
+  flex: 1;
+  padding-left: 20rpx;
+  color: #000;
+}
+.user_top .info .name{
+  font-size: 34rpx;
+  padding-top: 20rpx;
+}
+.user_top .info .setting{
+  padding-top: 20rpx;
+  font-size: 24rpx;
+  color: #999999;
+}
+.user_top .info .setting text{
+  padding-right: 20rpx;
+}
+.user_top .info .setting image{
+  width: 21rpx;
+  height: 22rpx;
+}
+.user_list{
+  padding: 0 30rpx;
+  background: #fff;
+  margin-top: 20rpx;
+}
+.user_list .item{
+  display: flex;
+  align-items: center;
+  padding: 35rpx;
+  border-bottom: 1rpx solid #eee;
+  position: relative;
+}
+.user_list .item .icon{
+  width: 50rpx;
+  height: 50rpx;
+}
+.user_list .item .icon image{
+  width: 74rpx;
+  height:73rpx;
+}
+.user_list .item .txt{
+  flex: 1;
+  line-height: 38rpx;
+  color: #333;
+  font-size: 32rpx;
+  padding-left: 30rpx;
+  font-weight: 600px;
+}
+.user_list .item.equity .txt{
+  line-height: 50rpx;
+}
+.user_list .item .txt .title, .user_list .item .txt .desc{
+  display: block;
+}
+.user_list .item .txt .desc{
+  color: #999;
+  font-size: 20rpx;
+  padding-top: 5rpx;
+}
+.user_list .item .txt .desc .light{
+  color: #dd4242;
+  font-size: 24rpx;
+}
+.right_icon{
+    position: absolute;
+    right: 10rpx;
+    top: 50%;
+    color: #333;
+    display: inline-block;
+    border: solid #999999;
+    border-width: 1rpx 0 0 1rpx;
+    transform: rotate(135deg);
+    margin-top: -6rpx;
+    width: 15rpx;
+    height: 15rpx;
+}

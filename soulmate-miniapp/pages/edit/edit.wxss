@@ -1,0 +1,146 @@
+page{
+  padding: 10px 38px;
+}
+.top{
+  background: #fff;
+}
+.uploadFile {
+  width: 100%;
+  height: 150rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  background: #a2a2a3;
+}
+.top .uploadFile_item, .top .uploadFile_item_small{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  background: #a2a2a3;
+  border-radius: 15rpx;
+}
+.top .uploadFile_item image, .top .uploadFile_item_small image{
+  border-radius: 15rpx;
+}
+.top .uploadFile_item .upload_icon{
+  width: 35rpx;
+  height: 35rpx;
+}
+.top .uploadFile_item .upload_icon.big-upload_icon{
+  width: 50rpx;
+  height: 50rpx;
+}
+.upload_top{
+  display: flex;
+}
+.upload_top .uploadFile{
+  width: 400rpx;
+  height: 400rpx;
+  margin-right: 30rpx;
+}
+.top .uploadFile_item_small{
+  width: 185rpx;
+  height: 185rpx;
+  margin-top: 29rpx;
+}
+.top .upload_top_right .uploadFile_item_small:first-child{
+ margin-top: 0;
+}
+.top .upload_bottom{
+  display: flex;
+}
+.top .upload_bottom .uploadFile_item_small{
+  margin-left: 29rpx;
+}
+.top .upload_bottom .uploadFile_item_small:first-child{
+  margin-left: 0;
+}
+.top .userImg{
+  width: 100%;
+  height: 100%;
+}
+.form-title{
+  display: flex;
+  padding: 50rpx 0;
+}
+.form-title .txt{
+  font-size: 34rpx;
+  color: #333;
+  flex: 1;
+}
+.form-title .edit{
+  width: 30rpx;
+  height: 30rpx;
+}
+.form-title .edit image{
+  width: 30rpx;
+  height: 30rpx;
+}
+.fromBox{
+  background: #fff;
+  display: block;
+}
+.title{
+  font-size: 28rpx;
+  padding: 20rpx 0;
+}
+.fromBox .item{
+  padding: 20rpx 0;
+  display: flex;
+  align-items: center;
+  /* border-top: 1rpx solid #ccc; */
+}
+.fromBox .item:first-child{
+  border: 0;
+}
+.fromBox .item .icon{
+  width:30rpx;
+  height: 32rpx;
+}
+.fromBox .item.item-wx .icon{
+  width: 36rpx;
+  height: 31rpx;
+}
+.fromBox .item.item-birthday .icon{
+  width: 30rpx;
+  height: 33rpx;
+}
+.fromBox .item.item-city .icon{
+  width: 32rpx;
+  height: 30rpx;
+}
+.fromBox .item.item-height .icon{
+  width: 36rpx;
+  height: 34rpx;
+}
+.fromBox .item.item-interest .icon{
+  width: 32rpx;
+  height: 29rpx;
+}
+.fromBox .item.item-school .icon{
+  width: 37rpx;
+  height: 28rpx;
+}
+.fromBox .item .name{
+  padding-left: 30rpx;
+  font-size: 28rpx;
+}
+.fromBox .item input{
+  flex: 1;
+  text-align: right;
+  font-size: 28rpx;
+  color: #999;
+}
+.bottom{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 90rpx 30rpx;
+}
+.bottom button{
+  width: 65%;
+  background-color: #ed6363;
+  color: #fff;
+  border-radius: 40rpx;
+}
