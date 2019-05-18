@@ -5,10 +5,10 @@ const app = getApp()
 Page({
   onLoad: function (options) {
     app.editTabBar();
-    setTimeout(() => {
-      wx.redirectTo({
-        url: '../talking/talking',
-      })
-    }, 1000)
+    // setTimeout(() => {
+    //   wx.redirectTo({
+    //     url: '../talking/talking',
+    //   })
+    // }, 1000)
   }
 })

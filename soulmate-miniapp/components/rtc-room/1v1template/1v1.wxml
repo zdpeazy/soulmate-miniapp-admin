@@ -1,0 +1,57 @@
+<template name="1v1">
+
+    <view class="v-full">
+        <!-- 主播-->
+        <view class="{{(streamList.length>0||linkPusherInfo.url)?'v1-main-video':'v1-main-video-full'}}">
+            <live-pusher wx:if="{{mainPusherInfo.url}}"
+                         id="{{mainPusherInfo.stream_id}}"
+                         mode="RTC"
+                         url="{{mainPusherInfo.url}}"
+                         min-bitrate="{{minBitrate}}"
+                         max-bitrate="{{maxBitrate}}"
+                         beauty="{{beauty}}"
+                         muted="false"
+                         background-mute="{{true}}"
+                         debug="{{debug}}"
+                         bindstatechange="onMainPushState"
+                         bindnetstatus="onMainPushStatus"
+                         binderror="onMainPushError">
+            </live-pusher>
+        </view>
+
+        <!--观看其他子主播-->
+        <view class='v1-main-video' wx:for="{{streamList}}" wx:key="{{index}}">
+
+            <live-player wx:if="{{item.url}}"
+                         autoplay id="{{item.stream_id}}"
+                         mode="RTC"
+                         min-cache="{{item.minCache}}"
+                         max-cache="{{item.maxCache}}"
+                         object-fit="{{item.objectFit}}"
+                         src="{{item.url}}"
+                         data-playingState="{{item.playingState }}"
+                         debug="{{debug}}"
+                         bindstatechange="onMainPlayState"
+                         bindnetstatus="onMainPlayStatus"
+                         binderror="onMainPlayError">
+
+
+                <cover-view class='poster' wx:if="{{item.playingState === 'initial'}}">
+                    <cover-image style="width: 100%; height: 100%;" src="/components/Resources/loading.png"></cover-image>
+                </cover-view>
+
+                <block wx:elif="{{item.playingState === 'success'}}">
+                    <cover-view class='character' style='padding: 0 5px;'>{{item.userName}}</cover-view>
+                </block>
+
+                <cover-view class='poster' wx:elif="{{item.playingState === 'failed'}}">
+                    <cover-image style="width: 100%; height: 100%;" src="/components/Resources/loading_fail.png"
+                                 mode="aspectFit"></cover-image>
+                </cover-view>
+
+            </live-player>
+        </view>
+
+    </view>
+
+</template>

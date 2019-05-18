@@ -44,4 +44,5 @@
 }
 .content{
   padding-bottom: 75rpx;
+  box-sizing: border-box;
 }

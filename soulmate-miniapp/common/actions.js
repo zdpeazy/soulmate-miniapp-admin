@@ -77,7 +77,28 @@ class _actions {
       pageNo,
       pageSize
     }
-    return this._request.postRequest('/chat/list/index', data).then(res => res.data)
+    return this._request.getRequest('/chat/list/index', data).then(res => res.data)
+  }
+  /**
+   * 发现周围用户列表
+   */
+  getUserDiscover(userId, pageNo = 1, pageSize = 100) {
+    let data = {
+      me: userId,
+      pageNo,
+      pageSize
+    }
+    return this._request.getRequest('/user/discover', data).then(res => res.data)
+  }
+  /**
+   * 喜欢
+   */
+  mAttention(userId, likeUserId) {
+    let data = {
+      userId: userId,
+      likeUserId: likeUserId
+    }
+    return this._request.postRequest('/user/like', data).then(res => res.data)
   }
 }
   

@@ -1,0 +1,80 @@
+.container{
+  padding: 25rpx;
+  box-sizing: border-box;
+}
+.banner{
+  position: relative;
+}
+.banner image{
+  width: 700rpx;
+  height: 228rpx;
+}
+.banner .matchingNo{
+  font-size: 44rpx;
+  color: #fff;
+  position: absolute;
+  top: 75rpx;
+  left: 350rpx;
+}
+.rightsList{
+  padding: 0 25rpx;
+}
+.rightsList .item{
+  display: flex;
+  padding: 40rpx 0;
+  background: #fff;
+  box-shadow: 2rpx 0rpx 20rpx #ccc;
+  border-radius: 20rpx;
+  margin-bottom: 40rpx;
+}
+.rightsList .item .icon{
+  width: 135rpx;
+  box-sizing: border-box;
+  padding: 8rpx 50rpx;
+}
+.rightsList .item .icon image{
+  width: 40rpx;
+  height: 36rpx;
+}
+.rightsList .item .icon.service image{
+  width: 40rpx;
+  height: 30rpx;
+}
+.rightsList .item .info{
+  flex: 1;
+}
+.rightsList .item .info .title{
+  font-size: 30rpx;
+}
+.rightsList .item .info .txt{
+  font-size: 22rpx;
+  color: #999999;
+}
+.rightsList .item .info .num{
+  font-size: 24rpx;
+  color: #ff5c5c;
+}
+.rightsList .item .guide{
+  padding-top: 20rpx;
+  box-sizing: border-box;
+  padding-right: 48rpx;
+  font-size: 24rpx;
+  color: #999999;
+  position: relative;
+}
+.rightsList .item .guide .txt{
+  padding-right: 20rpx;
+}
+.rightsList .item .guide .right_icon{
+  position: absolute;
+  right: 50rpx;
+  top: 50%;
+  color: #333;
+  display: inline-block;
+  border: solid #999999;
+  border-width: 1rpx 0 0 1rpx;
+  transform: rotate(135deg);
+  margin-top: -8rpx;
+  width: 12rpx;
+  height: 12rpx;
+}

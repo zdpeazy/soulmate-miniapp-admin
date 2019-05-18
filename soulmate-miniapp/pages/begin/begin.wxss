@@ -1,20 +1,75 @@
 .content{
-  padding: 30rpx;
+  padding: 40rpx;
 }
-.content .logo{
-  width: 150rpx;
-  height: 150rpx;
+.camera{
+  text-align: center;
+  padding-top: 100rpx;
+}
+.camera image{
+  width: 180rpx;
+  height: 180rpx;
   border-radius: 50%;
 }
-.content .txt{
-  font-size: 45rpx;
-  color: #ed6363;
-  padding: 150rpx 0 300rpx;
+.txt{
+  font-size: 30rpx;
+  color: #999999;
   text-align: center;
+  padding-top: 50rpx;
+}
+.item{
+  display: flex;
+  border-bottom: 1rpx solid #eee;
+  padding: 20rpx 0;
+}
+.item .name{
+  font-size:28rpx;
+  color: #333333;
+}
+.item.nickName{
+  margin-top: 100rpx;
+}
+.item input{
+  font-size:28rpx;
+  text-align: right;
+  flex: 1;
+}
+.item radio-group{
+  font-size: 28rpx;
+  text-align: right;
+  color: #999999;
+  flex: 1;
+}
+.item radio-group radio{
+  transform:scale(0.7);
+}
+.item .city{
+  font-size:28rpx;
+  text-align: right;
+  flex: 1;
+}
+.item .city text{
+  padding-right: 30rpx;
+  color: #999999;
+  position: relative;
+}
+.item .city text:after{
+  content: '';
+  position: absolute;
+  right: 10rpx;
+  top: 50%;
+  color: #333;
+  display: inline-block;
+  border: solid #999999;
+  border-width: 1rpx 0 0 1rpx;
+  transform: rotate(135deg);
+  margin-top: -6rpx;
+  width: 15rpx;
+  height: 15rpx;
 }
 .content button{
-  width: 80%;
-  margin-top: 20rpx;
+  width: 60%;
+  margin-top: 150rpx;
   background-color: #ed6363;
+  border-radius: 40rpx;
   color: #fff;
 }

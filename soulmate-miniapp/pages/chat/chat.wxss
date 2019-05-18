@@ -5,33 +5,34 @@
 .content .item{
   display: flex;
   padding: 15rpx 0 20rpx;
-  border-bottom: 1rpx solid #eee;
 }
 .content .item:last-child{
   border: none;
 }
 .content .item .userImg{
-  width: 70px;
-  height: 70px;
+  width: 90rpx;
+  height: 90rpx;
 }
 .content .item .userImg image{
-  width: 70px;
-  height: 70px;
+  width: 90rpx;
+  height: 90rpx;
   border-radius: 50%;
 }
 .content .item .info{
   flex: 1;
   margin-left: 30rpx;
+  padding-bottom: 35rpx;
+  border-bottom: 1rpx solid #eee;
 }
 .content .item .info text{
   display: block;
-  color: #666;
-  padding-top: 15rpx;
 }
 .content .item .info text.name{
-  font-size: 30rpx;
+  font-size: 32rpx;
+  color: #333333;
 }
 .content .item .info text.desc{
   font-size: 24rpx;
-  
+  color: #999999;
+  padding-top: 5rpx;
 }

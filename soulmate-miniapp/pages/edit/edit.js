@@ -5,7 +5,7 @@ Page({
   data: {
     wxName: '',
     userInfo: null,
-    editDisabled: true,
+    editDisabled: false,
     imgheights: [],
     imgUrls: [],
     current: 0,

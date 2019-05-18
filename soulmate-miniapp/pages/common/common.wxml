@@ -1,0 +1,30 @@
+<!--index.wxml-->
+<live-pusher url="{{url}}" mode="RTC" autopush="true" enable-camera="false" muted="{{muted}}"></live-pusher>
+<view class="container">
+  <view class="content">
+    <view class="opposite">
+      <view class='avatar'>
+        <image src='../../images/avatar.png'></image>
+      </view>
+      <view class='name'>Lunch With Diane</view>
+      <view class='time'>0.01 通话结束</view>
+    </view>
+    <view class='comment'>
+      <view class='commentTxt'>请给对方评价</view>
+      <view class='btn'>
+        <view class="item">
+          <image src='../../images/comment-noLike.png'></image>
+        </view>
+        <view class="item">
+          <image src='../../images/comment-like.png'></image> 
+        </view>
+      </view>
+    </view>
+    <view class='bottom'>
+      <view class='txt'>今日剩余<text class='num'>3</text>次</view>
+      <view class='continueBtn'>
+        <view>继续语音匹配</view>
+      </view>
+    </view>
+  </view>
+</view>

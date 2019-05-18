@@ -16,7 +16,7 @@
       </view>
     </view>
     <view class='user_list'>
-      <view class='item equity'>
+      <view class='item equity' bindtap='gotoRightCenter'>
         <view class='icon'>
           <image src='../../images/equity.png'></image>
         </view>
@@ -25,7 +25,7 @@
         </view>
         <text class='right_icon'></text>
       </view>
-      <view class='item'>
+      <view class='item' bindtap='gotoCreditCard'>
         <view class='icon'>
           <image src='../../images/card.png'></image>
         </view>

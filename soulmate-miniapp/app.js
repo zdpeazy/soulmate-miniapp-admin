@@ -1,10 +1,10 @@
 import _actions from './common/actions.js';
-let { ZegoClient } = require("./common/jZego-wx-1.1.2.js");
+import config from './common/config.js';
 
 App({
   onLaunch: function () {
     this.actions = new _actions();
-    this.zg = new ZegoClient();
+    this.globalData = Object.assign(this.globalData, config);
   },
   login(cb){
     let _t = this;

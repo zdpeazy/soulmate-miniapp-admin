@@ -1,15 +1,18 @@
 {
   "pages":[
-    "pages/begin/begin",
-    "pages/personalCenter/personalCenter",
     "pages/index/index",
+    "pages/begin/begin",
+    "pages/common/common",
+    "pages/chat/chat",
+    "pages/talking/talking",
+    "pages/contact/contact",
+    "pages/personalCenter/personalCenter",
     "pages/chatView/chatView",
     "pages/user/user",
     "pages/discover/discover",
-    "pages/chat/chat",
-    "pages/contact/contact",
-    "pages/talking/talking",
-    "pages/edit/edit"
+    "pages/edit/edit",
+    "pages/rightsCenter/rightsCenter",
+    "pages/creditCard/creditCard"
   ],
   "window": {
     "navigationBarBackgroundColor": "#fff",

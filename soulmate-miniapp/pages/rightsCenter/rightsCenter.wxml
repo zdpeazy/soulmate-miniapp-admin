@@ -1,0 +1,56 @@
+<view class='container'>
+  <view class='banner'>
+    <image src='../../images/rightsCenter-banner.png'></image>
+    <text class="matchingNo">{{userInfo.chatMatchCount}}次</text>
+  </view>
+  <view class='rightsList'>
+    <view class='item' bindtap='gotoEdit'>
+      <view class='icon'>
+        <image src='../../images/rights-edit-user.png'></image>
+      </view>
+      <view class='info'>
+        <view class='title'>完善个人资料</view>
+        <view>
+          <text class='txt'>匹配次数</text>
+          <text class="num">+1次</text>
+        </view>
+      </view>
+      <view class='guide'>
+        <text class="txt">去完善</text>
+        <text class='right_icon'></text>
+      </view>
+    </view>
+    <view class='item'>
+      <view class='icon share'>
+        <image src='../../images/rights-share-friend.png'></image>
+      </view>
+      <view class='info'>
+        <view class='title'>分享给好友</view>
+        <view>
+          <text class='txt'>匹配次数</text>
+          <text class="num">+1次</text>
+        </view>
+      </view>
+      <view class='guide'>
+        <text class="txt">去分享</text>
+        <text class='right_icon'></text>
+      </view>
+    </view>
+    <view class='item'>
+      <view class='icon service'>
+        <image src='../../images/rights-add-service.png'></image>
+      </view>
+      <view class='info'>
+        <view class='title'>添加客服微信</view>
+        <view>
+          <text class='txt'>匹配次数</text>
+          <text class="num">+5次</text>
+        </view>
+      </view>
+      <view class='guide'>
+        <text class="txt">去添加</text>
+        <text class='right_icon'></text>
+      </view>
+    </view>
+  </view>
+</view>

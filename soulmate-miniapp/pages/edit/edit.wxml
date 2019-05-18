@@ -33,9 +33,9 @@
   </view>
   <view class='form-title'>
     <view class='txt'>基本信息</view>
-    <view class='edit' bindtap='handlerEdit'>
+    <!-- <view class='edit' bindtap='handlerEdit'>
       <image src='../../images/user-setting.png'></image>
-    </view>
+    </view> -->
   </view>
   <form bindsubmit="formSubmit" class='fromBox'>
     <view class='item'>

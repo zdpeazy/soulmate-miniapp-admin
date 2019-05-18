@@ -1,9 +1,29 @@
 <view class='content'>
-  <view class='txt'>
-    <image class='logo' src='../../images/logo.jpeg'></image>
-    <view>
-      <text>欢迎使用soulmate</text>
+  <view class="camera">
+    <image src="{{!avatar ? '../../images/camera.png' : avatar}}" bindtap='uploadImg'></image>
+  </view>
+  <view class='txt' wx:if="{{!avatar}}">戳我一下，上传一张你的靓照吧～</view>
+  <view  bindsubmit="formSubmit">
+    <view class='item nickName'>
+      <view class='name'>昵称</view>
+      <input type='text' placeholder='请输入昵称' name="nickName" value='{{nickName}}' bindinput="setNickName" />
+    </view>
+    <view class='item'>
+      <view class='name'>性别</view>
+      <radio-group class="radio-group" bindchange="radioChange">
+        <label class="radio">
+          <radio value="男" checked="{{isMan}}" />男
+          <radio value="女" checked="{{!isMan}}" />女
+        </label>
+      </radio-group>
+    </view>
+    <view class='item'>
+      <view class='name'>地区</view>
+      <input type='text' placeholder='请输入所在城市' name="city" value='{{city}}' bindinput="setCity" />
+      <!-- <view class='city'>
+        <text>请选择</text>
+      </view> -->
     </view>
   </view>
-  <button open-type='getUserInfo' bindgetuserinfo="getUserInfo">开始使用</button>
+  <button open-type='getUserInfo' bindgetuserinfo="getWxUserInfo">完成</button>
 </view>

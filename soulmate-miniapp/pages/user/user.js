@@ -13,6 +13,16 @@ Page({
       url: '../edit/edit',
     })
   },
+  gotoRightCenter(){
+    wx.navigateTo({
+      url: '../rightsCenter/rightsCenter',
+    })
+  },
+  gotoCreditCard(){
+    wx.navigateTo({
+      url: '../creditCard/creditCard',
+    })
+  },
   getUserInfo() {
     let _t = this;
     app.actions.getUserInfoApi(app.globalData.user.userId)
@@ -22,7 +32,6 @@ Page({
           if (icon) {
             iconArr = icon.split(',')
           }
-          console.log(iconArr)
           _t.setData({
             userInfo: json.data,
             imgUrls: iconArr

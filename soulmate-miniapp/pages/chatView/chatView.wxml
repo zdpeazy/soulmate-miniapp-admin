@@ -1,5 +1,4 @@
-<!--index.wxml-->
-<view class="container">
+<!-- <view class="container">
   <import src="../../components/tabbar.wxml" />
   <template is="tabBar" data="{{tabBar}}" />
   <view class="content">
@@ -7,9 +6,30 @@
       <view class='avatar'>
         <image src='../../images/user-img.png'></image>
       </view>
-      <view class='photo'>
-        <view class='photoImg'>
-          <image src='../../images/photo.png'></image>
+      <view class='userInfo'>
+        <view class='name'>
+          <text>姓名</text>
+        </view>
+        <view class='photoList'>
+          <image src="../../images/photo.png"></image>
+          <image src="../../images/photo.png"></image>
+          <image src="../../images/photo.png"></image>
+        </view>
+      </view>
+    </view>
+    <view class='word'>
+      <view class="item">
+        <view class='tip u-tri fr'>方便语音通话吗？</view>
+      </view>
+      <view class="item">
+        <view class='tip u-tri operation fr'>
+          <text class='convenience'>方便</text>
+          <text class='no-convenience'>不方便</text>
+        </view>
+      </view>
+      <view class="item">
+        <view class='tip u-tri normal fl'>
+          方便
         </view>
       </view>
     </view>
@@ -17,4 +37,18 @@
       <image src='../../images/voice.png'></image>
     </view>
   </view>
-</view>
+</view> -->
+
+<block>
+  <rtc-room
+          id="rtcRoom"
+          roomid="{{roomID}}"
+          pureaudio="{{pureAudio}}"
+          debug="{{debug}}"
+          muted="{{muted}}"
+          beauty="{{beauty}}"
+          template="{{roomType}}"
+          pushstreamid="{{pushStreamId}}"
+          bindRoomEvent="onRoomEvent">
+  </rtc-room>
+</block>

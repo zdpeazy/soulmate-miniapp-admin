@@ -3,18 +3,98 @@ const app = getApp()
 
 Page({
   data: {
-    angle: -88,
     timer: null,
     chatMatchCount: 0,
     nickName: '',
-    icon: ''
+    icon: '',
+    canrecord: false
   },
 
   onLoad(options) {
     let _t = this;
     app.editTabBar();
-    _t.getUserInfo();
-    _t.drawRadar.init(_t.data.angle);
+    app.login(() => {
+      let userInfo = wx.getStorageSync("userInfo");
+      _t.getLocation(() => {
+        if (!userInfo) {
+          wx.redirectTo({
+            url: '../begin/begin',
+          })
+        } else {
+          app.globalData.userInfo = userInfo;
+          _t.getUserInfo();
+        }
+      });
+    })
+    
+  },
+  onReady(){
+    this.authCheck();
+  },
+  getLocation(cb) {
+    let _t = this;
+    wx.getLocation({
+      type: 'wgs84',
+      success(res) {
+        _t.uploadPostion(res.latitude, res.longitude, cb)
+      },
+      fail() {
+        _t.setAuth();
+      }
+    })
+  },
+  setAuth() {
+    let _t = this;
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userLocation'] || !res.authSetting['scope.userInfo']) {
+          wx.showModal({
+            showCancel: false,
+            content: '请允许获取权限',
+            success(res) {
+              if (res.confirm) {
+                wx.openSetting({
+                  success() {
+                    _t.getLocation(() => {
+                      let userInfo = wx.getStorageSync("userInfo");
+                      if (!userInfo) {
+                        wx.redirectTo({
+                          url: '../index/index',
+                        })
+                      } else {
+                        app.globalData.userInfo = userInfo;
+                        _t.getUserInfo();
+                      }
+                    });
+                  }
+                })
+              }
+            }
+          })
+        } else {
+          _t.getLocation(() => {
+            if (userInfo) {
+              app.globalData.userInfo = userInfo;
+              wx.redirectTo({
+                url: '../index/index',
+              })
+            }
+          });
+        }
+      }
+    })
+  },
+  uploadPostion(lat, lon, cb) {
+    let _t = this;
+    app.actions.uploadPositionApi({
+      userId: app.globalData.user.userId,
+      lat,
+      lon
+    }).then(json => {
+      if (json.code * 1 == 0) {
+        cb && cb();
+      }
+    })
   },
   getUserInfo(){
     let _t = this;
@@ -29,112 +109,80 @@ Page({
         }
       })
   },
-  searchFriend() {
+  searchFriend(){
     let _t = this;
-    if (!_t.data.nickName || !_t.data.icon){
-      wx.showModal({
-        showCancel: false,
-        content: '请完善个人资料',
-        success(res) {
-          if (res.confirm) {
-            wx.navigateTo({
-              url: '../edit/edit',
-            })
-          }
-        }
-      })
-    } else {
-      _t.stopAnima();
-      _t.createAnima();
-      _t.matchChat()
+    if (!_t.data.canrecord){
+      _t.openRecordSetting();
+      return;
     }
-
+    app.actions.chartStart(app.globalData.user.userId, '').then((json) => {
+      if (json.code == '4923'){
+        wx.showLoading({
+          title: '正在匹配中',
+          mask: true
+        })
+        return;
+      }
+      if (json.code * 1 != 0) {
+        wx.showModal({
+          showCancel: false,
+          content: json.message
+        })
+      }
+    })
   },
-  onUnload(){
-    this.stopAnima();
-  },
-  matchChat(){
+  // 打开语音授权页面
+  openRecordSetting(){
     let _t = this;
-    setTimeout(() => {
-      app.actions.chartStart(app.globalData.user.userId, '').then((json) => {
-        console.log(json)
-        if (json.code * 1 != 0) {
-          _t.stopAnima();
+    wx.openSetting({
+      success(res){
+        if (res.authSetting['scope.record']){
+          _t.setData({
+            canrecord: true
+          });
+        }
+      }
+    })
+  },
+  // 语音授权
+  authCheck() {
+    let _t = this;
+    wx.getSetting({
+      success: ({ authSetting }) => {
+        console.log(authSetting)
+        //推流必须要有这两权限
+        if (!authSetting['scope.record'] ) {
+          wx.authorize({
+            scope: 'scope.record',
+            success() {
+              _t.setData({
+                canrecord: true
+              });
+            },
+            fail() {
+              _t.setData({
+                canrecord: false
+              });
+            }
+          });
+
+
+        } else if (!wx.createLivePlayerContext) {
           wx.showModal({
+            title: '提示',
+            content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后再试。',
             showCancel: false,
-            content: json.message
-          })
+          });
+          this.setData({
+            canrecord: false
+          });
+        } else {
+          this.setData({
+            canShow: 1
+          });
         }
-      })
-    }, 5000)
-  },
-  drawRadar: {
-    radius: 80,
-    perDeg: 1,
-    init(angle) {
-      let _dr = this;
-      const ctx = wx.createCanvasContext('canvasArcCir');
-      _dr.cover(ctx);
-      _dr.drawPosLine(ctx);
-      _dr.drawRadar(ctx, angle);
-     
-    },
-    cover(ctx) {
-      let _dr = this;
-      ctx.fillStyle = 'rgba(0,50,0,1)';
-      ctx.translate(_dr.radius, _dr.radius);
-      ctx.arc(0, 0, _dr.radius, 0, 2 * Math.PI);
-      ctx.fill();
-    },
-    drawPosLine (ctx) {
-      let _dr = this;
-      ctx.strokeStyle = 'rgba(0,255,0,1)';
-      ctx.beginPath();
-      ctx.moveTo(0, -_dr.radius);
-      ctx.lineTo(0, _dr.radius);
-      ctx.closePath();
-      ctx.stroke();
 
-      ctx.beginPath();
-      ctx.moveTo(-_dr.radius, 0);
-      ctx.lineTo(_dr.radius, 0);
-      ctx.closePath();
-      ctx.stroke();
-
-      ctx.moveTo(_dr.radius, _dr.radius);
-      ctx.beginPath();
-      ctx.arc(0, 0, 25, 0 * Math.PI, 2 * Math.PI);
-      ctx.closePath();
-      ctx.stroke();
-
-      ctx.moveTo(_dr.radius, _dr.radius);
-      ctx.beginPath();
-      ctx.arc(0, 0, 52, 0 * Math.PI, 2 * Math.PI);
-      ctx.closePath();
-      ctx.stroke();
-
-    },
-    drawRadar(ctx, angle) {
-      let _dr = this;
-      ctx.fillStyle = 'rgba(0,200,0,.7)';
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.arc(0, 0, _dr.radius, (-3 * _dr.perDeg + angle) / 180 * Math.PI, (0 + angle) / 180 * Math.PI);
-      ctx.closePath();
-      ctx.fill();
-      ctx.draw();
-    }
-  },
-  createAnima(){
-    let _t = this;
-    _t.data.angle ++;
-    _t.drawRadar.init(_t.data.angle)
-    _t.data.timer = setTimeout(() => {
-      _t.createAnima();
-    }, 10)
-  },
-  stopAnima(){
-    let _t = this;
-    _t.data.timer && clearTimeout(_t.data.timer);
+      }
+    });
   }
 })

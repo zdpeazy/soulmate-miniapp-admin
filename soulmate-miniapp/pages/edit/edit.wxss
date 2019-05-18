@@ -81,13 +81,14 @@ page{
 .fromBox{
   background: #fff;
   display: block;
+  padding-bottom: 180rpx;
 }
 .title{
   font-size: 28rpx;
   padding: 20rpx 0;
 }
 .fromBox .item{
-  padding: 20rpx 0;
+  padding: 25rpx 0;
   display: flex;
   align-items: center;
   /* border-top: 1rpx solid #ccc; */
@@ -136,7 +137,13 @@ page{
 .bottom{
   width: 100%;
   box-sizing: border-box;
-  padding: 90rpx 30rpx;
+  padding: 30rpx 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  background: #fff;
+  border-top: 1rpx solid #fafafa;
 }
 .bottom button{
   width: 65%;

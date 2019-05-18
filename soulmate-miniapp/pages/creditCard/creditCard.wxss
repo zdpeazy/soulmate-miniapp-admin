@@ -1,0 +1,121 @@
+.container{
+  padding: 48rpx;
+  box-sizing: border-box;
+}
+.banner{
+  position: relative;
+}
+.banner image{
+  width: 654rpx;
+  height: 240rpx;
+}
+.banner .txt{
+  width: 100%;
+  text-align: center;
+  font-size: 32rpx;
+  color: #c8c1b2;
+  position: absolute;
+  bottom: 60rpx;
+  left: 0;
+}
+.bankList{
+}
+.bankList .item{
+  display: flex;
+  padding: 30rpx 0 20rpx;
+  background: #fff;
+  box-shadow: 2rpx 0rpx 20rpx #ccc;
+  border-radius: 20rpx;
+  margin-top: 40rpx;
+}
+.bankList .item .icon{
+  width: 135rpx;
+  box-sizing: border-box;
+  padding: 15rpx 50rpx;
+}
+.bankList .item .icon image{
+  width: 91rpx;
+  height: 91rpx;
+}
+.bankList .item .info{
+  flex: 1;
+  padding: 15rpx 20rpx;
+}
+.bankList .item .info .title{
+  font-size: 30rpx;
+}
+.bankList .item .info .txt{
+  font-size: 22rpx;
+  color: #999999;
+}
+.bankList .item .info .num{
+  font-size: 24rpx;
+  color: #ff5c5c;
+}
+.bankList .item .guide{
+  padding: 30rpx;
+}
+.bankList .item .guide .txt{
+  font-size: 22rpx;
+  padding: 10rpx 30rpx;
+  color: #fff;
+  background: #f28c88;
+  border-radius: 40rpx;
+}
+.sendMessageModel{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3)
+}
+.sendMessage{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 622rpx;
+  height: 800rpx;
+  margin-left: -311rpx;
+  margin-top: -400rpx;
+  background: #fff;
+}
+.sendMessage .banner, .sendMessage .banner image{
+  width: 622rpx;
+  height: 554rpx;
+}
+.sendMessage .contentInfo{
+  width: 100%;
+  height: 246rpx;
+  text-align: center;
+}
+.sendMessage .contentInfo .desc{
+  font-size: 24rpx;
+  color: #333333;
+  padding-top: 50rpx;
+}
+.sendMessage .contentInfo .desc text{
+  font-size: 28rpx;
+  color: #ed6363;
+}
+.sendMessage .contentInfo  .sendButton{
+  padding-top: 30rpx;
+}
+.sendMessage .contentInfo  .sendButton text{
+  font-size: 34rpx;
+  padding: 18rpx 92rpx;
+  color: #fff;
+  background: #f28c88;
+  border-radius: 40rpx;
+}
+.sendMessage .close{
+  width: 40rpx;
+  height: 40rpx;
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+}
+.sendMessage .close image{
+  width: 40rpx;
+  height: 40rpx;
+}

@@ -1,0 +1,108 @@
+page{
+  background: #f4f4f4;
+}
+.content{
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+.opposite{
+  padding-top: 100rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  position: relative;
+}
+.opposite .avatar{
+  width: 200rpx;
+  height: 200rpx;
+  border: 10rpx solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 20px 4px #f3bfbf;
+}
+.opposite .avatar image{
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 50%;
+}
+.opposite .name{
+  font-size: 44rpx;
+  padding-top: 70rpx;
+  color: #333333;
+}
+.opposite .time{
+  font-size:34rpx;
+  color: #999999;
+  padding: 20rpx 30rpx;
+  position: relative;
+}
+.opposite .time:before{
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 15rpx;
+  height: 15rpx;
+  margin-top: -8rpx;
+  border-radius: 50%;
+  background: #ff5c5c;
+}
+.comment{
+  width: 100%;
+  padding-top: 100rpx;
+  font-size: 28rpx;
+}
+.comment .commentTxt{
+  font-size: 34rpx;
+  color: #999999;
+  text-align: center;
+}
+.btn{
+  width: 80%;
+  display: flex;
+  margin: 0 auto;
+  padding-top: 30rpx;
+}
+.btn .item{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.btn .item image{
+  width: 194rpx;
+  height: 194rpx;
+}
+.btn .item .txt{
+  padding-top: 10rpx;
+  font-size: 22rpx;
+  color: #fff;
+}
+.bottom{
+  width: 100%;
+  text-align: center;
+  position: fixed;
+  bottom: 120rpx;
+}
+.bottom .txt{
+  font-size: 30rpx;
+  color: #000000;
+}
+.bottom .txt .num{
+  color: #ed6363;
+}
+.bottom .continueBtn{
+  height: 80rpx;
+}
+.bottom .continueBtn view{
+  display: inline-block;
+  padding: 20rpx 80rpx;
+  font-size: 34rpx;
+  color: #fff;
+  background: #ed6363;
+  margin-top: 30rpx;
+  border-radius: 40rpx;
+}

@@ -1,0 +1,40 @@
+<view class='container'>
+  <view class='banner'>
+    <image src='../../images/credit-banner.png'></image>
+    <view class="txt">办理信用卡即可获赠3个月会员</view>
+  </view>
+  <view class='bankList'>
+    <view class='item'>
+      <view class='icon'>
+        <image src='../../images/bank-logo.png'></image>
+      </view>
+      <view class='info'>
+        <view class='title'>中信银行</view>
+        <view>
+          <text class='txt'>银行官网办理</text>
+        </view>
+      </view>
+      <view class='guide'>
+        <text class="txt" bindtap='handlerModel'>立即办理</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="sendMessageModel"  wx:if="{{showModel}}">
+  <view class='sendMessage'>
+    <view class='banner'>
+      <image src='../../images/sendMessage.png'></image>
+    </view>
+    <view class='contentInfo'>
+      <view class='desc'>
+        发送<text>“1”</text>给客服助手，即可前往银行官网办卡哦
+      </view>
+      <view class="sendButton">
+        <text bindtap='handlerSend'>马上发送</text>
+      </view>
+    </view>
+    <view class='close' bindtap='handlerClose'>
+      <image src='../../images/bank-close.png'></image>
+    </view>
+  </view>
+</view>
