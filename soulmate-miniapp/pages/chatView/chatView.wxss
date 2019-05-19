@@ -1,4 +1,4 @@
-/* page{
+page{
   background: #f4f4f4;
 }
 .content{
@@ -124,7 +124,7 @@
   border-color: #fff ;
   background-color: #fff;
   left: 20rpx;
-} */
+}
 .navaigator{
     height:10vh;
     display:flex;

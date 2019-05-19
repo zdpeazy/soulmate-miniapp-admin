@@ -61,10 +61,10 @@ class _actions {
   /**
    * 匹配聊天
    */
-  chartStart(fromUserId, toUserId) {
+  chartStart(fromUserId, fromUserSex) {
       let data = {
         fromUserId,
-        toUserId
+        fromUserSex
       }
     return this._request.postRequest('/chat/start', data).then(res => res.data)
   }
@@ -99,6 +99,15 @@ class _actions {
       likeUserId: likeUserId
     }
     return this._request.postRequest('/user/like', data).then(res => res.data)
+  }
+  /**
+   * 
+   */
+  mFetchChat(userId) {
+    let data = {
+      userId: userId
+    }
+    return this._request.getRequest('/chat/status/fetch', data).then(res => res.data)
   }
 }
   

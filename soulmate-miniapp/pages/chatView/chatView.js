@@ -4,6 +4,133 @@ let { sharePage } = require("../../common/util.js");
 //获取应用实例
 const app = getApp();
 
+let _methods = {
+  onRoomEvent(ev) {
+    console.log('onRoomEvent', ev);
+  },
+  showMessage() {
+    this.setData({
+      isMessageHide: !this.data.isMessageHide
+    });
+  },
+
+  bindMessageInput(e) {
+    this.data.inputMessage = e.detail.value;
+  },
+
+  onComment() {
+    console.log('>>>[liveroom-room] begin to comment', this.data.inputMessage);
+
+    let message = {
+      id: this.data.idName + Date.parse(new Date()),
+      name: this.data.idName,
+      time: new Date().format("hh:mm:ss"),
+      content: this.data.inputMessage,
+    };
+
+    this.data.messageList.push(message);
+    console.log('>>>[liveroom-room] currentMessage', this.data.inputMessage);
+
+    this.setData({
+      messageList: this.data.messageList,
+      inputMessage: "",
+      scrollToView: message.id,
+    });
+
+    this.showMessage();
+
+    this.data.component.sendRoomMsg(1, 1, message.content,
+      function (seq, msgId, msg_category, msg_type, msg_content) {
+        console.log('>>>[liveroom-room] onComment success');
+      }, function (err, seq, msg_category, msg_type, msg_content) {
+        console.log('>>>[liveroom-room] onComment, error: ');
+        console.log(err);
+      }
+    );
+  },
+
+  canUseMixStream() {
+    return true;
+  },
+  mixStream() {
+    if (!this.canUseMixStream()) return;
+
+    this.setData({
+      mixStreamStart: !this.data.mixStreamStart,
+    });
+
+    if (this.data.mixStreamStart) {
+      //start mix
+      this.updateMixStream();
+    } else {
+      //stop mix
+      this.stopMixStream();
+    }
+  },
+  playMixStream() {
+    if (!this.canUseMixStream()) return;
+
+    //未开始混流，不能播放混流
+    if (!this.data.playMixStreamStart && !this.data.mixStreamStart) {
+      return;
+    }
+    this.setData({
+      playMixStreamStart: !this.data.playMixStreamStart,
+    });
+
+    if (this.data.playMixStreamStart) {
+      //start play mix
+      this.startPlayingMixStream();
+    } else {
+      //stop play mix
+      this.stopPlayingMixStream();
+    }
+  },
+
+
+  updateMixStream() {
+    let streamList = [{
+      streamId: this.data.pushStreamId,
+      top: 0,
+      left: 0,
+      bottom: 320,
+      right: 240,
+    }];
+
+    this.data.component.updateMixStream({
+      outputStreamId: this.data.mixStreamId,
+      outputBitrate: 300 * 1000,
+      outputFps: 15,
+      outputWidth: 240,
+      outputHeight: 320,
+      streamList: streamList
+    }, (mixStreamId, mixStreamInfo) => {
+      console.log('mixStreamId: ' + mixStreamId);
+      console.log('mixStreamInfo: ' + JSON.stringify(mixStreamInfo));
+    }, (err, errorInfo) => {
+      console.log('err: ' + JSON.stringify(err));
+      console.log('errorInfo: ' + JSON.stringify(errorInfo));
+    });
+  },
+  stopMixStream() {
+    this.data.component.stopMixStream({
+      outputStreamId: this.data.mixStreamId
+    },
+      () => {
+        console.log('stopMixStream suc')
+      },
+      err => {
+        console.log('stopMixStream err', err)
+      })
+  },
+  startPlayingMixStream() {
+    this.data.component.startPlayingMixStream(this.data.mixStreamId)
+  },
+  stopPlayingMixStream() {
+    this.data.component.stopPlayingMixStream(this.data.mixStreamId);
+  }
+};
+
 Page({
   data: {
     toUserId: '',
@@ -26,16 +153,16 @@ Page({
     mixStreamStart: false,
     playMixStreamStart: false
   },
-  onLoad({ roomId = 'R5ce048c8e96725678032ce08', streamId = 'C5ce048c8e96725678032ce07', toUserId, roomType = 0 }) {
+  onLoad({ roomID = 'R5ce048c8e96725678032ce08', streamId, toUserId }) {
     let timestamp = new Date().getTime();
     this.setData({
       idName: 'xcxU' + timestamp,
-      pushStreamId: 'C5ce048c8e96725678032ce07',
-      mixStreamId: 'C5ce048c8e96725678032ce07',
+      pushStreamId: 'xcxS' + timestamp,
+      mixStreamId: 'xcxMixS' + timestamp,
       roomID: 'R5ce048c8e96725678032ce08',
       toUserId,
-      roomName: roomId,
-      roomType: roomType == 1 ? 'wrap' : '1v1'
+      roomName: roomID,
+      roomType: '1v1'
     });
     console.log(this.data)
   },
@@ -79,5 +206,6 @@ Page({
     wx.navigateTo({
       url: '../personalCenter/personalCenter',
     })
-  }
+  },
+  ..._methods
 })

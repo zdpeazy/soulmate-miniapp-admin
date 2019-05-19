@@ -75,9 +75,6 @@ Page({
           _t.getLocation(() => {
             if (userInfo) {
               app.globalData.userInfo = userInfo;
-              wx.redirectTo({
-                url: '../index/index',
-              })
             }
           });
         }
@@ -115,28 +112,44 @@ Page({
       _t.openRecordSetting();
       return;
     }
-    app.actions.chartStart(app.globalData.user.userId, '').then((json) => {
-      if (json.code == '4923'){
-        wx.showLoading({
-          title: '正在匹配中',
-          mask: true
-        })
-        return;
-      }
+    app.actions.chartStart(app.globalData.user.userId, 'F').then((json) => {
       if (json.code * 1 != 0) {
         wx.showModal({
           showCancel: false,
           content: json.message
         })
       }
+      wx.showLoading({
+        title: '正在匹配中',
+        mask: true
+      })
+      setTimeout(() => {
+        _t.gotoChatView(json.data.toUserId);
+      }, 3000)
+    })
+  },
+  gotoChatView(oppositeUserId) {
+    let _t = this;
+    app.actions.chartStart(app.globalData.user.userId, 'F').then((json) => {
+      if (json.code != 0) {
+        wx.showModal({
+          showCancel: false,
+          content: json.message
+        })
+        return;
+      }
+      // roomId R5ce039b7e96725678032cdd8
+      wx.navigateTo({
+        url: '../chatView/chatView?roomID=' + json.data.roomId + '&streamId=' + json.data.streamid + '&toUserId=' + oppositeUserId
+      });
     })
   },
   // 打开语音授权页面
-  openRecordSetting(){
+  openRecordSetting() {
     let _t = this;
     wx.openSetting({
-      success(res){
-        if (res.authSetting['scope.record']){
+      success(res) {
+        if (res.authSetting['scope.record']) {
           _t.setData({
             canrecord: true
           });
@@ -178,7 +191,7 @@ Page({
           });
         } else {
           this.setData({
-            canShow: 1
+            canrecord: true
           });
         }
 

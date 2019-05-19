@@ -5,6 +5,7 @@ App({
   onLaunch: function () {
     this.actions = new _actions();
     this.globalData = Object.assign(this.globalData, config);
+    this.get
   },
   login(cb){
     let _t = this;
@@ -19,6 +20,10 @@ App({
                   data: json.data
                 });
                 _t.globalData.user = json.data;
+                _t.getChatStatus(json.data.userId);
+                setInterval(res => {
+                  _t.getChatStatus(json.data.userId);
+                }, 10000)
                 cb && cb();
               } else {
                 wx.showToast({
@@ -30,6 +35,14 @@ App({
         }
       }
     })
+  },
+  // 拉去聊天信息
+  getChatStatus(userId){
+    let _t = this;
+    _t.actions.mFetchChat(userId)
+      .then(res => {
+        console.log(res);
+      })
   },
   editTabBar: function () {
     var _curPageArr = getCurrentPages();

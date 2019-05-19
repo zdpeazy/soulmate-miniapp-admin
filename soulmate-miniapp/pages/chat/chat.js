@@ -15,7 +15,7 @@ Page({
     console.log(e.currentTarget.dataset.userid)
     let _t = this;
     let oppositeUserId = e.currentTarget.dataset.userid;
-    app.actions.chartStart(app.globalData.user.userId, oppositeUserId).then((json) => {
+    app.actions.chartStart(app.globalData.user.userId, 'F').then((json) => {
       if(json.code != 0){
         wx.showModal({
           showCancel: false,
@@ -25,7 +25,7 @@ Page({
       }
       // roomId R5ce039b7e96725678032cdd8
       wx.navigateTo({
-        url: '../chatView/chatView?roomId=' + json.data.roomId + '&streamId=' + json.data.streamid + '&toUserId=' + oppositeUserId
+        url: '../chatView/chatView?roomID=' + json.data.roomId + '&streamId=' + json.data.streamid + '&toUserId=' + oppositeUserId
       });
       // _t.setData({
       //   ...json.data
@@ -49,7 +49,16 @@ Page({
         item.chatDuration = _t.formatTime(item.chatDuration)
       })
       _t.setData({
-        userList: userChatDTOList
+        // userList: userChatDTOList
+        userList: [
+          {
+            chatDuration: null,
+            chatStartTime: null,
+            firstIcon: "http://soulmateyuyin.oss-cn-beijing.aliyuncs.com/U5cdff8c1e9672565e68ae8f4/1.jpg",
+            nickName: "小美女1",
+            userId: "U5cdff8c1e9672565e68ae8f4"
+          }
+        ]
       })
     })
   },

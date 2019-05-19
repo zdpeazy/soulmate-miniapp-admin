@@ -1,4 +1,17 @@
-<!-- <view class="container">
+<block>
+  <rtc-room
+          id="rtcRoom"
+          roomid="{{roomID}}"
+          pureaudio="{{pureAudio}}"
+          debug="{{debug}}"
+          muted="{{muted}}"
+          beauty="{{beauty}}"
+          template="{{roomType}}"
+          pushstreamid="{{pushStreamId}}"
+          bindRoomEvent="onRoomEvent">
+  </rtc-room>
+</block>
+<view class="container">
   <import src="../../components/tabbar.wxml" />
   <template is="tabBar" data="{{tabBar}}" />
   <view class="content">
@@ -17,7 +30,7 @@
         </view>
       </view>
     </view>
-    <view class='word'>
+    <!-- <view class='word'>
       <view class="item">
         <view class='tip u-tri fr'>方便语音通话吗？</view>
       </view>
@@ -32,23 +45,11 @@
           方便
         </view>
       </view>
-    </view>
+    </view> -->
     <view class='voice' bindtap='contact'>
       <image src='../../images/voice.png'></image>
     </view>
   </view>
-</view> -->
+</view>
 
-<block>
-  <rtc-room
-          id="rtcRoom"
-          roomid="{{roomID}}"
-          pureaudio="{{pureAudio}}"
-          debug="{{debug}}"
-          muted="{{muted}}"
-          beauty="{{beauty}}"
-          template="{{roomType}}"
-          pushstreamid="{{pushStreamId}}"
-          bindRoomEvent="onRoomEvent">
-  </rtc-room>
-</block>
+
