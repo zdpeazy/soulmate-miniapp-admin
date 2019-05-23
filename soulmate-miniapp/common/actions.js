@@ -61,10 +61,11 @@ class _actions {
   /**
    * 匹配聊天
    */
-  chartStart(fromUserId, fromUserSex) {
+  chartStart(fromUserId, fromUserSex, toUserId = '') {
       let data = {
         fromUserId,
-        fromUserSex
+        fromUserSex,
+        toUserId
       }
     return this._request.postRequest('/chat/start', data).then(res => res.data)
   }
@@ -108,6 +109,25 @@ class _actions {
       userId: userId
     }
     return this._request.getRequest('/chat/status/fetch', data).then(res => res.data)
+  }
+  
+  getMyFans(userId, pageNo = 1, pageSize = 100){
+    let data = {
+      me: userId,
+      pageNo,
+      pageSize
+    }
+    return this._request.getRequest('/user/whoLikeMe', data).then(res => res.data)
+  }
+
+  /**
+   * 获取我的权益0
+   */
+  getMyRights(userId){
+    let data = {
+      userId,
+    }
+    return this._request.getRequest('/user/right/get', data).then(res => res.data)
   }
 }
   

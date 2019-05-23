@@ -11,10 +11,26 @@ Page({
     ],
     current: 0,
     animationData: {},
-    animationData2: {}
+    animationData2: {},
+    toUser: {}
   },
   onLoad: function (options) {
-    this.stretch(350)
+    this.setData({
+      toUserId: options.toUserId,
+    });
+    this.stretch(350);
+    this.getUserInfo();
+  },
+  getUserInfo(){
+    app.actions.getUserInfoApi(this.data.toUserId).then(json => {
+      if(json.code == 0){
+        this.setData({
+          imgUrls: json.data.icon.split(','),
+          toUser: json.data,
+          interest: json.data.interest.split('、')
+        })
+      }
+    })
   },
   change(e) {
     this.setData({

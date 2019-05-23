@@ -151,6 +151,7 @@ let rtcRoomHandler = {
 
       let loginSucCallback = (streamList) => {
 
+        console.log('123456')
         this.data.isLogin = true;
         zego.setPreferPublishSourceType(1);
         this.doPublish();

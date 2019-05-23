@@ -17,16 +17,14 @@
   <view class="content">
     <view class="opposite" bindtap='lookDetail'>
       <view class='avatar'>
-        <image src='../../images/user-img.png'></image>
+        <image src='{{toUserImgUrls[0]}}'></image>
       </view>
       <view class='userInfo'>
         <view class='name'>
-          <text>姓名</text>
+          <text>{{toUser.nickName}}</text>
         </view>
         <view class='photoList'>
-          <image src="../../images/photo.png"></image>
-          <image src="../../images/photo.png"></image>
-          <image src="../../images/photo.png"></image>
+          <image wx:for="{{toUserImgUrls}}" wx:key="{{index}}" src="{{item}}"></image>
         </view>
       </view>
     </view>

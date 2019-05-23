@@ -4,15 +4,15 @@
     <text class="matchingNo">{{userInfo.chatMatchCount}}次</text>
   </view>
   <view class='rightsList'>
-    <view class='item' bindtap='gotoEdit'>
+    <view class='item' bindtap='gotoEdit' wx:if="rights.editInfo">
       <view class='icon'>
         <image src='../../images/rights-edit-user.png'></image>
       </view>
       <view class='info'>
-        <view class='title'>完善个人资料</view>
+        <view class='title'>{{rights.editInfo.desc}}</view>
         <view>
           <text class='txt'>匹配次数</text>
-          <text class="num">+1次</text>
+          <text class="num">+{{rights.editInfo.matchCount}}次</text>
         </view>
       </view>
       <view class='guide'>
@@ -20,15 +20,15 @@
         <text class='right_icon'></text>
       </view>
     </view>
-    <view class='item'>
+    <view class='item' wx:if="rights.shareToFriend">
       <view class='icon share'>
         <image src='../../images/rights-share-friend.png'></image>
       </view>
       <view class='info'>
-        <view class='title'>分享给好友</view>
+        <view class='title'>{{rights.shareToFriend.desc}}</view>
         <view>
           <text class='txt'>匹配次数</text>
-          <text class="num">+1次</text>
+          <text class="num">+{{rights.shareToFriend.matchCount}}次</text>
         </view>
       </view>
       <view class='guide'>
@@ -36,15 +36,15 @@
         <text class='right_icon'></text>
       </view>
     </view>
-    <view class='item'>
+    <view class='item' wxif="rights.addWx">
       <view class='icon service'>
         <image src='../../images/rights-add-service.png'></image>
       </view>
       <view class='info'>
-        <view class='title'>添加客服微信</view>
+        <view class='title'>{{rights.addWx.desc}}</view>
         <view>
           <text class='txt'>匹配次数</text>
-          <text class="num">+5次</text>
+          <text class="num">+{{rights.addWx.matchCount}}次</text>
         </view>
       </view>
       <view class='guide'>

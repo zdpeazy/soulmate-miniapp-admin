@@ -151,7 +151,9 @@ Page({
     inputMessage: '',
     scrollToView: '',
     mixStreamStart: false,
-    playMixStreamStart: false
+    playMixStreamStart: false,
+    toUserImgUrls: [],
+    toUser: {}
   },
   onLoad({ roomID = 'R5ce048c8e96725678032ce08', streamId, toUserId }) {
     let timestamp = new Date().getTime();
@@ -159,11 +161,13 @@ Page({
       idName: 'xcxU' + timestamp,
       pushStreamId: 'xcxS' + timestamp,
       mixStreamId: 'xcxMixS' + timestamp,
-      roomID: 'R5ce048c8e96725678032ce08',
+      roomID,
       toUserId,
       roomName: roomID,
-      roomType: '1v1'
+      roomType: '1v1',
+      streamId
     });
+    this.getToUserInfo();
     console.log(this.data)
   },
   /**
@@ -190,6 +194,16 @@ Page({
       this.data.component.start(this.data.token);
     });
   },
+  getToUserInfo(){
+    app.actions.getUserInfoApi(this.data.toUserId).then(json => {
+      if(json.code == 0){
+        this.setData({
+          toUserImgUrls: json.data.icon.split(','),
+          toUser: json.data,
+        })
+      }
+    })
+  },
   onShow() {
     //刷新全局变量
     appID = getApp().globalData.liveAppID;
@@ -199,12 +213,12 @@ Page({
   },
   contact(){
     wx.navigateTo({
-      url: '../contact/contact',
+      url: '../contact/contact?toUserId=' + this.data.toUserId,
     })
   },
   lookDetail(){
     wx.navigateTo({
-      url: '../personalCenter/personalCenter',
+      url: '../personalCenter/personalCenter?toUserId=' + this.data.toUserId,
     })
   },
   ..._methods

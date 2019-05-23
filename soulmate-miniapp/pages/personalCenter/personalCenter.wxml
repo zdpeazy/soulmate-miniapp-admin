@@ -10,21 +10,19 @@
     </swiper>
     <view class='info'>
       <view class='name'>
-        Lunch With Diane
+        {{toUser.nickName}}
       </view>
       <view class='introduce'>
-        <text class='sex'>男 19</text>
-        <text class='constellation'>水瓶座</text>
+        <text class='sex'>{{toUser.sex == 'F' ? '女 ' : '男 ' + toUser.age}}</text>
+        <text class='constellation' wx:if="{{toUser.constellation}}">{{toUser.constellation}}</text>
       </view>
       <view class="address">
-        <text>北京·北京市</text>
+        <text>{{toUser.city}}</text>
       </view>
       <view>
         <view class="title">兴趣爱好</view>
         <view class='interest'>
-          <text class='item'>摄影</text>
-          <text class='item'>游泳</text>
-          <text class='item'>电影</text>
+          <text wx:for='{{interest}}' wx:key='{{index}}' class='item'>{{item}}</text>
         </view>
       </view>
     </view>

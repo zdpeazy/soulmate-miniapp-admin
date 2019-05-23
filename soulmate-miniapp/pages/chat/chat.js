@@ -15,7 +15,7 @@ Page({
     console.log(e.currentTarget.dataset.userid)
     let _t = this;
     let oppositeUserId = e.currentTarget.dataset.userid;
-    app.actions.chartStart(app.globalData.user.userId, 'F').then((json) => {
+    app.actions.chartStart(app.globalData.user.userId, 'F', e.currentTarget.dataset.userid).then((json) => {
       if(json.code != 0){
         wx.showModal({
           showCancel: false,

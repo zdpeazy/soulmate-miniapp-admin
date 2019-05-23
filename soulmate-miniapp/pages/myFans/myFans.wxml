@@ -1,0 +1,17 @@
+<!--pages/myFans/myFans.wxml-->
+<view class="container">
+  <import src="../../components/tabbar.wxml" />
+  <template is="tabBar" data="{{tabBar}}" />
+  <!-- <import src="../../components/blur.wxml" />
+  <template is="blurImg" data="{{blurImg}}" /> -->
+  <view class="content">
+    <view class="item" bindtap='gotoChatView' wx:for="{{fansList}}" wx:key="*this" data-userId="{{item.userId}}" wx:if="{{fansList.length > 0}}">
+      <view class="userImg">
+        <image src='{{item.firstIcon}}'></image>
+      </view>
+      <view class="info">
+        <text class='name'>{{item.nickName}}</text>
+      </view>
+    </view>
+  </view>
+</view>

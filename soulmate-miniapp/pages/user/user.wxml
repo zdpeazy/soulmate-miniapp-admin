@@ -36,8 +36,26 @@
         <text class='right_icon'></text>
       </view>
     </view>
-    <view class='fans'>
-      
+    <view class='fans user_list' bindtap='gotoMyFans'>
+       <view class='item equity borderless'>
+          <view class='icon'>
+            <image src='../../images/user-fans.png'></image>
+          </view>
+          <view class='txt'>
+            <text>谁喜欢我</text>
+          </view>
+          <view class="see_all">查看全部<text class='right_icon'></text></view>
+      </view>
+      <view class="fans_list">
+        <view class="fans_list_item">
+          <view class="fans_view" wx:for="{{fansList}}" wx:key="*this" wx:if="{{fansList.length > 0}}">
+            <image src='{{item.firstIcon}}'></image>
+          </view>
+          <view class="fans_view">
+            <image src='../../images/user-fans-more.png'></image>
+          </view>
+        </view>
+      </view>
     </view>
   </view>
 </view>

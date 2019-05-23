@@ -96,3 +96,38 @@ page{
     width: 15rpx;
     height: 15rpx;
 }
+.user_list .see_all{
+  font-size: 20rpx;
+  color: #999999;
+}
+.user_list .borderless{
+  border: none;
+}
+.fans_list{
+  display: flex;
+  justify-content: center;
+  padding-bottom: 35rpx;
+}
+.fans .item{
+  padding-bottom: 20rpx;
+}
+.fans .right_icon{
+  margin-top: -4rpx;
+}
+.fans_list_item{
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+}
+.fans_view{
+  width: 82rpx;
+  height: 82rpx;
+  border-radius: 50%;
+  margin-right: 22rpx;
+  overflow: hidden;
+  box-shadow: 0 10rpx 20rpx 0 #eeeeee;
+}
+.fans_view image{
+  width: 82rpx;
+  height: 82rpx;
+}
