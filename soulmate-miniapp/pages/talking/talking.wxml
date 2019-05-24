@@ -1,13 +1,26 @@
 <!--index.wxml-->
-<live-pusher url="{{url}}" mode="RTC" autopush="true" enable-camera="false" muted="{{muted}}"></live-pusher>
+<!-- <live-pusher url="{{url}}" mode="RTC" autopush="true" enable-camera="false" muted="{{muted}}"></live-pusher> -->
+<block>
+  <rtc-room
+          id="rtcRoom"
+          roomid="{{roomID}}"
+          pureaudio="{{pureAudio}}"
+          debug="{{debug}}"
+          muted="{{muted}}"
+          beauty="{{beauty}}"
+          template="{{roomType}}"
+          pushstreamid="{{pushStreamId}}"
+          bindRoomEvent="onRoomEvent">
+  </rtc-room>
+</block>
 <view class="container">
   <view class="content">
     <view class="opposite">
       <view class='avatar'>
-        <image src='../../images/avatar.png'></image>
+        <image src='{{toUserImgUrls[0]}}'></image>
       </view>
-      <view class='name'>Lunch With Diane</view>
-      <view class='time'>0.01</view>
+      <view class='name'>{{toUser.nickName}}</view>
+      <view class='time'>{{min}}:{{sec}}</view>
     </view>
     <view class='question'>
       <view class='questionInfo'>
@@ -19,10 +32,10 @@
     </view>
     <view class='btn'>
       <view class="item">
-        <image src='../../images/silence.png'></image>
+        <image src='../../images/silence.png' bindtap="muted"></image>
       </view>
       <view class="item">
-        <image src='../../images/talking-cancel.png'></image> 
+        <image src='../../images/talking-cancel.png' bindtap="finish"></image> 
       </view>
     </view>
   </view>

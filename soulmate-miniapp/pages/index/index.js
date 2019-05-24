@@ -7,7 +7,9 @@ Page({
     chatMatchCount: 0,
     nickName: '',
     icon: '',
-    canrecord: false
+    canrecord: false,
+    ani1: null,
+    animate: false
   },
 
   onLoad(options) {
@@ -26,9 +28,9 @@ Page({
         }
       });
     })
-    
+
   },
-  onReady(){
+  onReady() {
     this.authCheck();
   },
   getLocation(cb) {
@@ -93,26 +95,36 @@ Page({
       }
     })
   },
-  getUserInfo(){
+  getUserInfo() {
     let _t = this;
     app.actions.getUserInfoApi(app.globalData.user.userId)
       .then(json => {
-        if(json.code == 0){
+        if (json.code == 0) {
           _t.setData({
             chatMatchCount: json.data.chatMatchCount,
             nickName: json.data.nickName,
-            icon: json.data.icon
+            icon: json.data.icon,
+            sex: json.data.sex
           })
+          app.globalData.me = json.data;
         }
       })
   },
-  searchFriend(){
+  startAni() {
+    this.setData({
+      animate: true
+    })
+  },
+  searchFriend() {
+    this.startAni();
     let _t = this;
-    if (!_t.data.canrecord){
+    app.globalData.isTalking = true;
+    if (!_t.data.canrecord) {
       _t.openRecordSetting();
       return;
     }
-    app.actions.chartStart(app.globalData.user.userId, 'F').then((json) => {
+    app.actions.chartStart(app.globalData.user.userId, this.data.sex).then((json) => {
+      console.log('匹配性别' + this.data.sex)
       if (json.code * 1 != 0) {
         wx.showModal({
           showCancel: false,
@@ -124,13 +136,14 @@ Page({
         mask: true
       })
       setTimeout(() => {
-        _t.gotoChatView(json.data.toUserId);
+        //wx.hideLoading()
+        //_t.gotoChatView(json.data.toUserId);
       }, 3000)
     })
   },
   gotoChatView(oppositeUserId) {
     let _t = this;
-    app.actions.chartStart(app.globalData.user.userId, 'F').then((json) => {
+    app.actions.chartStart(app.globalData.user.userId, this.data.sex).then((json) => {
       if (json.code != 0) {
         wx.showModal({
           showCancel: false,
@@ -164,7 +177,7 @@ Page({
       success: ({ authSetting }) => {
         console.log(authSetting)
         //推流必须要有这两权限
-        if (!authSetting['scope.record'] ) {
+        if (!authSetting['scope.record']) {
           wx.authorize({
             scope: 'scope.record',
             success() {
@@ -178,7 +191,6 @@ Page({
               });
             }
           });
-
 
         } else if (!wx.createLivePlayerContext) {
           wx.showModal({

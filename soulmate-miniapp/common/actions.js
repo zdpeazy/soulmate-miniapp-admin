@@ -129,6 +129,30 @@ class _actions {
     }
     return this._request.getRequest('/user/right/get', data).then(res => res.data)
   }
+
+  /**
+   * @method 女生确认聊天
+   * @param {*} fromUserId 
+   * @param {*} me 
+   * @param {*} agree 
+   */
+  fConfirm(fromUserId, me, agree){
+    let data = {
+      fromUserId,me,agree
+    }
+    return this._request.getRequest('/chat/confirm', data).then(res => res.data)
+  }
+
+  getTopicList(userId, anthorUserId	){
+    let data = {
+      userId, anthorUserId
+    }
+    return this._request.getRequest('/chat/topic/list', data).then(res => res.data)
+  }
+
+  sendComment(data){
+    return this._request.postRequest('/chat/grade', data).then(res => res.data)
+  }
 }
   
 

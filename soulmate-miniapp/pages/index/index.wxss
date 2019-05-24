@@ -74,3 +74,23 @@
   border: 1px #000 solid;
   border-radius: 5vw;
 }
+.scale1{
+  animation: ripple 2s linear 0s infinite;
+}
+.scale2{
+  animation: ripple 2s linear 0s infinite;
+}
+.scale3{
+  animation: ripple 3s linear .2s infinite;
+}
+@-webkit-keyframes ripple {
+  0%{
+    transform: scale(0.4);
+  }
+  50%{
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}

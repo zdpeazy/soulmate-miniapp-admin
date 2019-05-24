@@ -50,15 +50,7 @@ Page({
       })
       _t.setData({
         // userList: userChatDTOList
-        userList: [
-          {
-            chatDuration: null,
-            chatStartTime: null,
-            firstIcon: "http://soulmateyuyin.oss-cn-beijing.aliyuncs.com/U5cdff8c1e9672565e68ae8f4/1.jpg",
-            nickName: "小美女1",
-            userId: "U5cdff8c1e9672565e68ae8f4"
-          }
-        ]
+        userList: json.data.userChatDTOList
       })
     })
   },

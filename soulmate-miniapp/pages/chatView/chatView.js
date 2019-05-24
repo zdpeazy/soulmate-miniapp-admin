@@ -155,7 +155,8 @@ Page({
     toUserImgUrls: [],
     toUser: {}
   },
-  onLoad({ roomID = 'R5ce048c8e96725678032ce08', streamId, toUserId }) {
+  onLoad({ roomID = 'R5ce048c8e96725678032ce08', streamId, toUserId, talkToUserId }) {
+    app.globalData.isTalking = true;
     let timestamp = new Date().getTime();
     this.setData({
       idName: 'xcxU' + timestamp,
@@ -163,6 +164,7 @@ Page({
       mixStreamId: 'xcxMixS' + timestamp,
       roomID,
       toUserId,
+      talkToUserId,
       roomName: roomID,
       roomType: '1v1',
       streamId
@@ -194,8 +196,12 @@ Page({
       this.data.component.start(this.data.token);
     });
   },
+  onUnload: function () {
+    app.globalData.isTalking = false;
+    this.data.component && this.data.component.stop();
+  },
   getToUserInfo(){
-    app.actions.getUserInfoApi(this.data.toUserId).then(json => {
+    app.actions.getUserInfoApi(this.data.talkToUserId).then(json => {
       if(json.code == 0){
         this.setData({
           toUserImgUrls: json.data.icon.split(','),

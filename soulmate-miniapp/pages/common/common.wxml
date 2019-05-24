@@ -4,25 +4,25 @@
   <view class="content">
     <view class="opposite">
       <view class='avatar'>
-        <image src='../../images/avatar.png'></image>
+        <image src='{{icon}}'></image>
       </view>
-      <view class='name'>Lunch With Diane</view>
-      <view class='time'>0.01 通话结束</view>
+      <view class='name'>{{nickName}}</view>
+      <view class='time'>{{time}} 通话结束</view>
     </view>
     <view class='comment'>
       <view class='commentTxt'>请给对方评价</view>
       <view class='btn'>
         <view class="item">
-          <image src='../../images/comment-noLike.png'></image>
+          <image date-evaluate="sad" src='../../images/comment-noLike.png' bindtap="sendComment"></image>
         </view>
         <view class="item">
-          <image src='../../images/comment-like.png'></image> 
+          <image date-evaluate="happy" src='../../images/comment-like.png' bindtap="sendComment"></image> 
         </view>
       </view>
     </view>
     <view class='bottom'>
-      <view class='txt'>今日剩余<text class='num'>3</text>次</view>
-      <view class='continueBtn'>
+      <view class='txt'>今日剩余<text class='num'>{{chatMatchCount}}</text>次</view>
+      <view class='continueBtn' bindtap="back">
         <view>继续语音匹配</view>
       </view>
     </view>

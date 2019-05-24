@@ -8,7 +8,7 @@
       <view class='name'>我的昵称</view>
       <view class='contacting'>正在等待对方接受邀请...</view>
     </view>
-    <view class='cancel'>
+    <view class='cancel' bindtap="click">
       <image src='../../images/cancel-talking.png'></image>
     </view>
   </view>

@@ -10,5 +10,17 @@ const config = {
   cgi_token: "", //即构测试用,开发者请忽略
   // apiUrl: 'http://172.16.140.247'
 }
+// const config = {
+//   apiUrl: 'https://api.soulmateyuyin.cn',
+//   liveAppID: 988847216,
+//   rtcAppID: 1082937486, 
+//   testEnvironment: 0,
+//   tokenURL: "https://wssliveroom-demo.zego.im/token",
+//   roomListURL: "https://liveroom1739272706-api.zego.im/demo/roomlist?appid=1739272706",
+//   wsServerURL: "wss://wssliveroom-test.zego.im/ws",
+//   logServerURL: "https://wsslogger-test.zego.im/httplog",
+//   cgi_token: "", //即构测试用,开发者请忽略
+//   // apiUrl: 'http://172.16.140.247'
+// }
 
 export default config
