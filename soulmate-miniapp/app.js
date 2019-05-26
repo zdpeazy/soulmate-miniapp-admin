@@ -41,11 +41,12 @@ App({
   getChatStatus(userId){
     let _t = this;
     _t.actions.mFetchChat(userId)
-    .then(res => {
+      .then(res => {
+        console.log(res)
         if(res.code == 0 && res.data){
-          if(this.globalData.isTalking || this.globalData.isContacting) return;
+          if(this.globalData.isTalking) return;
           let talkToUserId = res.data.fromUserId == this.globalData.user.userId ? res.data.toUserId : res.data.fromUserId;
-          if(res.data.chatStatus == 2){  //男方先匹配，不需要确认,或者已经确认
+          if(res.data.chatStatus == 2 || res.data.chatStatus == 3){  //已经在聊天
             wx.navigateTo({
               url: '../talking/talking?roomID=' + res.data.roomId 
               + '&streamId=' + res.data.streamid 
@@ -54,23 +55,27 @@ App({
               + '&fromUserId=' + res.data.fromUserId
             });
             _t.globalData.isTalking = true;
-          }else if(res.data.chatStatus == 1){  //女方先匹配，女的是发起方，需要确认
+          }else if(res.data.chatStatus == 1){  //男的是发起方，需要确认
             if(res.data.fromUserId == _t.globalData.user.userId){ //我是发起方
               if(res.data.fromUserSex == "F"){ //我是女的
                 _t.globalData.isContacting = true;
-                wx.navigateTo({
-                  url: '../contact/contact?&toUserId=' + toUserId + '&type=confirm&fromUserId=' + res.data.fromUserId,
-                });
+                // wx.navigateTo({
+                //   url: '../contact/contact?&toUserId=' + toUserId + '&type=confirm&fromUserId=' + res.data.fromUserId,
+                // });
               }else{ //我是男的
 
               }
             }else{ //我是被发起方
               if(res.data.toUserSex == "F"){ //我是女的
-
+                if(_t.globalData.isContacting) return;
+                _t.globalData.isContacting = true;
+                wx.navigateTo({
+                  url: '../contact/contact?&talkToUserId=' + talkToUserId + '&type=confirm&fromUserId=' + res.data.fromUserId,
+                });
               }else{ //我是男的
                 _t.globalData.isContacting = true;
                 wx.navigateTo({
-                  url: '../contact/contact?&toUserId=' + toUserId + '&type=wait&fromUserId=' + res.data.fromUserId,
+                  url: '../contact/contact?&talkToUserId=' + talkToUserId + '&type=wait&fromUserId=' + res.data.fromUserId,
                 });
               }
             }

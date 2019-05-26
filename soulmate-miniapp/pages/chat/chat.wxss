@@ -36,3 +36,7 @@
   color: #999999;
   padding-top: 5rpx;
 }
+.empty{
+  text-align: center;
+  padding-top: 40rpx;
+}

@@ -5,7 +5,7 @@
   <!-- <import src="../../components/blur.wxml" />
   <template is="blurImg" data="{{blurImg}}" /> -->
   <view class="content">
-    <view class="item" bindtap='gotoChatView' wx:for="{{userList}}" wx:key="*this" data-userId="{{item.userId}}" wx:if="{{userList.length > 0}}">
+    <view class="item" bindtap='gotoChatView' wx:for="{{userList}}" wx:key="*this" data-sex="{{item.sex}}" data-userId="{{item.userId}}" wx:if="{{userList.length > 0}}">
       <view class="userImg">
         <image src='{{item.firstIcon}}'></image>
       </view>
@@ -14,5 +14,8 @@
         <text class='desc'>语音聊天时长 {{item.chatDuration}}</text>
       </view>
     </view>
+  </view>
+  <view class="empty" wx:if="{{userList.length == 0}}">
+    <text>暂无聊天</text>
   </view>
 </view>

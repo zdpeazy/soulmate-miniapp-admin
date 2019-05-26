@@ -116,9 +116,9 @@ Page({
     })
   },
   searchFriend() {
+    app.globalData.polling = true;
     this.startAni();
     let _t = this;
-    app.globalData.isTalking = true;
     if (!_t.data.canrecord) {
       _t.openRecordSetting();
       return;
@@ -136,9 +136,15 @@ Page({
         mask: true
       })
       setTimeout(() => {
-        //wx.hideLoading()
+        wx.hideLoading();
+        if(app.globalData.polling && !app.globalData.isTalking && !app.globalData.isContacting){
+          wx.showToast({
+            title: '请稍后再试',
+            icon: 'none',
+          })
+        }
         //_t.gotoChatView(json.data.toUserId);
-      }, 3000)
+      }, 30000);
     })
   },
   gotoChatView(oppositeUserId) {

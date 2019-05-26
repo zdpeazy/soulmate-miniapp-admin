@@ -4,11 +4,11 @@
   <template is="tabBar" data="{{tabBar}}" />
   <view class='content'>
     <view class='user_top'>
-      <view class='avatar'>
+      <view class='avatar' bindtap='gotoEdit'>
         <image src='{{imgUrls[0]}}'></image>
       </view>
       <view class='info'>
-        <view class='name'>{{userInfo.nickName}}</view>
+        <view class='name' bindtap='gotoEdit'>{{userInfo.nickName}}</view>
         <view class='setting' bindtap='gotoEdit'>
           <text class='txt'>点击查看/编辑</text>
           <image src='../../images/setting.png'></image>

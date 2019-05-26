@@ -78,3 +78,13 @@
   width: 12rpx;
   height: 12rpx;
 }
+.shareBtn::after{
+  border: none;
+  outline: none;
+  background: none;
+}
+.shareBtn{
+  border: none;
+  outline: none;
+  background: none;
+}

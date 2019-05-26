@@ -53,3 +53,9 @@ page{
   width: 226rpx;
   height: 226rpx;
 }
+.btn{
+  margin-top: 140rpx;
+  padding: 0 20%;
+  display: flex;
+  justify-content: space-between;
+}

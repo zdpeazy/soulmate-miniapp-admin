@@ -155,19 +155,10 @@ Page({
     toUserImgUrls: [],
     toUser: {}
   },
-  onLoad({ roomID = 'R5ce048c8e96725678032ce08', streamId, toUserId, talkToUserId }) {
-    app.globalData.isTalking = true;
-    let timestamp = new Date().getTime();
+  onLoad({ toUserId='', talkToUserId='', talkToUserSex='' }) {
     this.setData({
-      idName: 'xcxU' + timestamp,
-      pushStreamId: 'xcxS' + timestamp,
-      mixStreamId: 'xcxMixS' + timestamp,
-      roomID,
-      toUserId,
       talkToUserId,
-      roomName: roomID,
-      roomType: '1v1',
-      streamId
+      talkToUserSex
     });
     this.getToUserInfo();
     console.log(this.data)
@@ -176,29 +167,10 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
   onReady() {
-    // 进入房间，自动登录
-    getLoginToken(this.data.idName, appID).then(token => {
-      this.setData({
-        token,
-      });
-      this.data.component = this.selectComponent("#rtcRoom");
-      this.data.component.config({
-        appid: appID, // 必填，应用id，由即构提供
-        idName: this.data.idName, // 必填，用户自定义id
-        nickName: this.data.idName, // 必填，用户自定义昵称
-        remoteLogLevel: 0, // 日志上传级别，建议取值不小于 logLevel
-        logLevel: 0, // 日志级别，debug: 0, info: 1, warn: 2, error: 3, report: 99, disable: 100（数字越大，日志越少）
-        server: wsServerURL,//,"wss://wssliveroom-demo.zego.im/ws", // 必填，服务器地址，由即构提供
-        logUrl: "https://wsslogger-demo.zego.im/httplog", // 选填，log 服务器地址，由即构提供
-        audienceCreateRoom: false, // 观众不允许创建房间
-        testEnvironment: !!testEnvironment
-      });
-      this.data.component.start(this.data.token);
-    });
+   
   },
   onUnload: function () {
-    app.globalData.isTalking = false;
-    this.data.component && this.data.component.stop();
+    // app.globalData.isTalking = false;
   },
   getToUserInfo(){
     app.actions.getUserInfoApi(this.data.talkToUserId).then(json => {
@@ -218,13 +190,32 @@ Page({
     testEnvironment = getApp().globalData.testEnvironment;
   },
   contact(){
-    wx.navigateTo({
-      url: '../contact/contact?toUserId=' + this.data.toUserId,
-    })
+    if(app.globalData.me.sex == 'M'){
+      wx.navigateTo({
+        url: '../contact/contact?type=oneToOne&talkToUserId=' + this.data.talkToUserId + '&toUserSex=' + this.data.toUser.sex,
+      });
+    }else{
+      this.goTalking();
+    }
+  },
+  goTalking(){
+    app.actions.chartStart(app.globalData.user.userId, app.globalData.me.sex, this.data.talkToUserId, this.data.talkToUserSex)
+      .then(res => {
+        console.log('12312312313123',res)
+        if(res.code == 0){
+          wx.navigateTo({
+            url: '../talking/talking?roomID=' + res.data.roomId 
+            + '&streamId=' + res.data.streamid 
+            + '&toUserId=' + res.data.toUserId 
+            + '&talkToUserId=' + this.data.talkToUserId
+            + '&fromUserId=' + res.data.fromUserId
+          });
+        }
+      });
   },
   lookDetail(){
     wx.navigateTo({
-      url: '../personalCenter/personalCenter?toUserId=' + this.data.toUserId,
+      url: '../personalCenter/personalCenter?toUserId=' + this.data.talkToUserId,
     })
   },
   ..._methods

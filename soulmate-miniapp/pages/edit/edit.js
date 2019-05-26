@@ -106,7 +106,10 @@ Page({
               _t.getUserInfo();
               _t.setData({
                 editDisabled: true
-              })
+              });
+              setTimeout(()=>{
+                wx.navigateBack({delta: 1});
+              }, 1000)
             }
           })
         }

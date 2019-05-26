@@ -1,0 +1,38 @@
+<!--index.wxml-->
+<view class="container">
+  <import src="../../components/tabbar.wxml" />
+  <template is="tabBar" data="{{tabBar}}" />
+  <view class='swiper_content'>
+    <swiper class='swiper_detail' 
+    interval="{{5000}}" 
+    duration="{{500}}" 
+    circular="true" 
+    previous-margin="{{'35px'}}" 
+    next-margin="{{'35px'}}"
+    bindchange="swiperChange" 
+    current="{{current}}">
+      <block wx:for="{{userList}}" wx:key="{{item.userId}}">
+        <swiper-item item-id="{{item.userId}}">
+          <image src="{{item.headerUrl}}" class='slide-image image-view' data-src='{{item.userId}}'></image>
+          <view class='info'>
+            <view class='name'>{{item.nickName}}</view>
+            <view class='address'>
+              <text>{{item.city}}</text> <text wx:if="{{item.constellation}}">{{'/' + item.constellation}}</text>
+            </view>
+          </view>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class='button_content'>
+    <view class='prev item' bindtap='prevUser'>
+      <image src='../../images/discover-prev.png'></image>
+    </view>
+    <view class='noLike item' bindtap='nextUser'>
+      <image src='../../images/no-like.png'></image>
+    </view>
+    <view class='like item' bindtap='attention'>
+      <image src='../../images/like.png'></image>
+    </view>
+  </view>
+</view>

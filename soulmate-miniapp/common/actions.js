@@ -61,11 +61,12 @@ class _actions {
   /**
    * 匹配聊天
    */
-  chartStart(fromUserId, fromUserSex, toUserId = '') {
+  chartStart(fromUserId, fromUserSex = "M", toUserId = '', toUserSex = '') {
       let data = {
         fromUserId,
         fromUserSex,
-        toUserId
+        toUserId,
+        toUserSex
       }
     return this._request.postRequest('/chat/start', data).then(res => res.data)
   }
@@ -140,7 +141,7 @@ class _actions {
     let data = {
       fromUserId,me,agree
     }
-    return this._request.getRequest('/chat/confirm', data).then(res => res.data)
+    return this._request.postRequest('/chat/confirm', data).then(res => res.data)
   }
 
   getTopicList(userId, anthorUserId	){

@@ -18,6 +18,17 @@ Page({
       url: '../edit/edit',
     })
   },
+  copyWxNum(){
+    wx.setClipboardData({
+      data: '1756494442',
+      success(res) {
+        wx.showToast({
+          title: '客服微信复制成功，请到微信添加',
+          icon: 'none'
+        })
+      }
+    })
+  },
   getUserInfo() {
     let _t = this;
     app.actions.getUserInfoApi(app.globalData.user.userId)
@@ -47,5 +58,11 @@ Page({
           return res;
         }
       })
+  },
+  onShareAppMessage(res) {
+    return {
+      title: '解决尬聊问题，实现深度沟通',
+      path: '/index/index'
+    }
   }
 })

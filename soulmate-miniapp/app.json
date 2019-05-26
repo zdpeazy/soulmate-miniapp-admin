@@ -13,7 +13,8 @@
     "pages/edit/edit",
     "pages/rightsCenter/rightsCenter",
     "pages/creditCard/creditCard",
-    "pages/myFans/myFans"
+    "pages/myFans/myFans",
+    "pages/webview/webview"
   ],
   "window": {
     "navigationBarBackgroundColor": "#fff",

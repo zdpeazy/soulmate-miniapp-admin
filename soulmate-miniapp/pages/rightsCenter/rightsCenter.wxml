@@ -31,10 +31,10 @@
           <text class="num">+{{rights.shareToFriend.matchCount}}次</text>
         </view>
       </view>
-      <view class='guide'>
+      <button class='guide shareBtn' open-type="share">
         <text class="txt">去分享</text>
-        <text class='right_icon'></text>
-      </view>
+        <text class='right_icon' style="margin-top:0;"></text>
+      </button>
     </view>
     <view class='item' wxif="rights.addWx">
       <view class='icon service'>
@@ -47,7 +47,7 @@
           <text class="num">+{{rights.addWx.matchCount}}次</text>
         </view>
       </view>
-      <view class='guide'>
+      <view class='guide' bindtap="copyWxNum">
         <text class="txt">去添加</text>
         <text class='right_icon'></text>
       </view>
