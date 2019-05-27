@@ -8,7 +8,7 @@ Page({
     x: 0,
     y: 0,
     hiddenimg: true,
-    move: null,
+    move: [],
     userList: [],
     currentUserId: '',
     current: 0
@@ -39,53 +39,12 @@ Page({
           currentUserId: userList[0].userId,
           person1: userList[_t.data.current],
           person2: userList[_t.data.current + 1] || that.data.userList[that.data.current],
+          current: userList.length - 1
         })
       })
-  },
-  moveimg: function (e) {
-    console.log(e)
-    let that = this;
-    if(e.detail.source == 'touch'){
-      prex = e.detail.x;
-    }
-  },
-  touchendimg: function (e) {
-    let that = this;
-    this.setData({
-      x: 0,
-      y: 0
-    })
-    if (prex < -150 || prex > 150) {
-      if(that.data.current == that.data.userList.length){
-        return wx.showToast({
-          title: '没有更多了',
-          icon: 'none'
-        });
-      }
-      that.setData({
-        current: that.data.current + 1,
-        hiddenimg: false,
-      }, () => {
-        setTimeout(function () {
-          that.setData({
-            hiddenimg: true,
-            person1: that.data.person2,
-            person2: that.data.userList[that.data.current + 1] || that.data.person2,
-          })
-        }, 300)
-      })
-
-    } else {
-      setTimeout(function () {
-        that.setData({
-          x: 0,
-          y: 0
-        })
-      }, 300);
-    }
   },
   nextUser(){
-    if((this.data.current+1) == this.data.userList.length){
+    if(this.data.current <= 0){
       return wx.showToast({
         title: '没有更多了',
         icon: 'none'
@@ -94,10 +53,9 @@ Page({
     this.next(false);
   },
   next(like){
-    let that = this, dis = -400, deg = 30;
+    let that = this, dis = -400, move = this.data.move;
     if(like){
       dis = 400;
-      deg = -30;
     }
     let animation = wx.createAnimation({
       duration: 700,
@@ -106,29 +64,46 @@ Page({
       transformOrigin: "60%, 40%",
     });
     animation.translateX(dis).opacity(0).step();
+    move[this.data.current] = animation.export(),
     this.setData({
-      move: animation.export(),
-      current: that.data.current + 1
-    })
+      move,
+      current: that.data.current - 1,
+    });
+
     setTimeout(()=>{
-      animation.translateX(0).opacity(1).step({duration: 100, transformOrigin: "60%, 40%", timingFunction: 'step-start'})
-      setTimeout(()=>{
-        that.setData({
-          person1: that.data.person2,
-          move: animation.export(),
-          person2: that.data.userList[that.data.current + 1] || that.data.person2
-        });
-      }, 100)
-    }, 900);
+      animation.scale(0).step();
+      move[this.data.current + 1] = animation.export(),
+      this.setData({
+        move,
+      });
+    }, 300)
+
+    // setTimeout(() => {
+    //   that.setData({
+    //     person1: that.data.person2,
+    //     person2: that.data.userList[that.data.current + 1] || that.data.person2,
+    //   })
+    //   animation.translateX(0).step({duration: 0, transformOrigin: "60%, 40%", timingFunction: 'step-start'})
+    //   that.setData({
+    //     move: animation.export(),
+    //   });
+    //   setTimeout(()=>{
+    //     animation.opacity(1).step({duration: 200, transformOrigin: "60%, 40%", timingFunction: 'step-start'})
+    //     that.setData({
+    //       move: animation.export(),
+    //     });
+    //   }, 300);
+    // }, 900);
   },
   attention(){
-    if((this.data.current + 1) == this.data.userList.length){
+    if(this.data.current <= 0){
       return wx.showToast({
         title: '没有更多了',
         icon: 'none'
       });
     }
     let _t = this;
+    _t.next(true);
     app.actions.mAttention(app.globalData.user.userId, _t.data.userList[_t.data.current].userId)
       .then( json => {
         if (json.code * 1 != 0) {
@@ -138,7 +113,6 @@ Page({
           })
           return;
         }
-        _t.next(true);
       })
   }
 })

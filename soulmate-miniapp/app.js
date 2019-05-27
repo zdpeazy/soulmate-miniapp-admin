@@ -24,7 +24,7 @@ App({
                 _t.timer = setInterval(res => {
                   if(!_t.globalData.polling) return;
                   _t.getChatStatus(json.data.userId);
-                }, 10000)
+                }, 7000)
                 cb && cb();
               } else {
                 wx.showToast({
@@ -42,11 +42,22 @@ App({
     let _t = this;
     _t.actions.mFetchChat(userId)
       .then(res => {
-        console.log(res)
+        console.log('polling',res)
         if(res.code == 0 && res.data){
           if(this.globalData.isTalking) return;
           let talkToUserId = res.data.fromUserId == this.globalData.user.userId ? res.data.toUserId : res.data.fromUserId;
-          if(res.data.chatStatus == 2 || res.data.chatStatus == 3){  //已经在聊天
+          if(res.data.chatStatus == 2){
+            if(_t.globalData.isContacting) return;
+            _t.globalData.isContacting = true;
+            wx.navigateTo({
+              url: '../contact/contact?&talkToUserId=' + talkToUserId 
+              + '&type=confirm&fromUserId=' + res.data.fromUserId
+              + '&streamId=' + res.data.streamid 
+              + '&toUserId=' + res.data.toUserId 
+              + '&fromUserId=' + res.data.fromUserId
+              + '&roomID=' + res.data.roomId
+            });
+          }else if(res.data.chatStatus == 3){  //已经在聊天
             wx.navigateTo({
               url: '../talking/talking?roomID=' + res.data.roomId 
               + '&streamId=' + res.data.streamid 
@@ -66,13 +77,16 @@ App({
 
               }
             }else{ //我是被发起方
-              if(res.data.toUserSex == "F"){ //我是女的
+              if(_t.globalData.me.sex == "F"){ //我是女的
                 if(_t.globalData.isContacting) return;
                 _t.globalData.isContacting = true;
                 wx.navigateTo({
-                  url: '../contact/contact?&talkToUserId=' + talkToUserId + '&type=confirm&fromUserId=' + res.data.fromUserId,
+                  url: '../chatView/chatView?&talkToUserId=' + talkToUserId 
+                  + '&type=confirm&fromUserId=' + res.data.fromUserId
+                  + '&toUserId=' + res.data.toUserId,
                 });
               }else{ //我是男的
+                if(_t.globalData.isContacting) return;
                 _t.globalData.isContacting = true;
                 wx.navigateTo({
                   url: '../contact/contact?&talkToUserId=' + talkToUserId + '&type=wait&fromUserId=' + res.data.fromUserId,

@@ -28,22 +28,41 @@
         </view>
       </view>
     </view>
-    <!-- <view class='word'>
-      <view class="item">
+    <view class='word' wx:if="{{talkToUserSex == 'F' }}">
+      <view class="item" wx:if="{{talkToUserSex == 'F'}}">
         <view class='tip u-tri fr'>方便语音通话吗？</view>
       </view>
-      <view class="item">
-        <view class='tip u-tri operation fr'>
-          <text class='convenience'>方便</text>
-          <text class='no-convenience'>不方便</text>
-        </view>
-      </view>
-      <view class="item">
-        <view class='tip u-tri normal fl'>
+      <view class="item" wx:if="{{agree == 'Y'}}">
+        <view class='tip u-tli normal fl'>
           方便
         </view>
       </view>
-    </view> -->
+      <view class="item"  wx:if="{{agree == 'N'}}">
+        <view class='tip u-tli normal fl'>
+          不方便
+        </view>
+      </view>
+    </view>
+
+    <view class='word' wx:if="{{type=='confirm'}}">
+      <view class="item" wx:if="{{type=='confirm'}}">
+        <view class='tip u-tli fl'>方便语音通话吗？</view>
+      </view>
+      <view class="item">
+        <view class='tip u-tri operation fr' wx:if="{{type == 'confirm'}}">
+          <text class='convenience' data-agree='Y' bindtap="confirm">方便</text>
+          <text class='no-convenience' data-agree='N' bindtap="confirm">不方便</text>
+        </view>
+      </view>
+      <view class="item">
+        <view class='tip u-tri fr' wx:if="{{agree == 'Y'}}">
+          方便
+        </view>
+        <view class='tip u-tri fr' wx:if="{{agree == 'N'}}">
+          不方便
+        </view>
+      </view>
+    </view>
     <view class='voice' bindtap='contact'>
       <image src='../../images/voice.png'></image>
     </view>

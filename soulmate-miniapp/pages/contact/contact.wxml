@@ -6,14 +6,15 @@
         <image src='{{toUserImgUrls[0]}}'></image>
       </view>
       <view class='name'>{{toUser.nickName}}</view>
-      <view class='contacting'>正在等待对方接受邀请...</view>
+      <view class='contacting' wx:if="{{type == 'confirm'}}">对方想要和你通话...</view>
+      <view class='contacting' wx:else>正在等待对方接受邀请...</view>
     </view>
     <view class='cancel' bindtap="click" wx:if="{{type != 'confirm0'}}">
       <image src='../../images/cancel-talking.png'></image>
     </view>
     <view class="btn" wx:if="{{type == 'confirm'}}">
-      <button data-res="Y" bindtap="confirm">接受</button>
-      <button data-res="N" bindtap="confirm">拒绝</button>
+      <button data-res="Y" bindtap="confirmChat">接受</button>
+      <button data-res="N" bindtap="confirmChat">拒绝</button>
     </view>
   </view>
 </view>

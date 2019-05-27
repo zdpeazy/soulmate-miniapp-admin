@@ -153,12 +153,18 @@ Page({
     mixStreamStart: false,
     playMixStreamStart: false,
     toUserImgUrls: [],
-    toUser: {}
+    toUser: {},
+    fromUserId: '',
+    type: '',
+    agree: ''
   },
-  onLoad({ toUserId='', talkToUserId='', talkToUserSex='' }) {
+  onLoad({ toUserId='', talkToUserId='', talkToUserSex='', fromUserId = '', type='' }) {
     this.setData({
       talkToUserId,
-      talkToUserSex
+      talkToUserSex,
+      fromUserId,
+      toUserId,
+      type
     });
     this.getToUserInfo();
     console.log(this.data)
@@ -167,7 +173,7 @@ Page({
      * 生命周期函数--监听页面初次渲染完成
      */
   onReady() {
-   
+    
   },
   onUnload: function () {
     // app.globalData.isTalking = false;
@@ -182,6 +188,26 @@ Page({
       }
     })
   },
+  confirm(e){
+    let _t = this;
+    let agree = e.currentTarget.dataset.agree;
+    app.actions.fConfirm(this.data.fromUserId, app.globalData.user.userId, agree).then(res => {
+      _t.setData({
+        agree
+      })
+      setTimeout(()=>{
+        if(agree == 'Y'){
+          app.globalData.polling = true;
+          
+        }else{
+          app.globalData.isTalking = false;
+          app.globalData.isContacting = false;
+          app.globalData.polling = true;
+          wx.navigateBack({delta: 1});
+        }
+      }, 2000)
+    });
+  },
   onShow() {
     //刷新全局变量
     appID = getApp().globalData.liveAppID;
@@ -189,11 +215,65 @@ Page({
     wsServerURL = getApp().globalData.wsServerURL;
     testEnvironment = getApp().globalData.testEnvironment;
   },
-  contact(){
-    if(app.globalData.me.sex == 'M'){
-      wx.navigateTo({
-        url: '../contact/contact?type=oneToOne&talkToUserId=' + this.data.talkToUserId + '&toUserSex=' + this.data.toUser.sex,
+  conatctConfirm() {
+    let that = this;
+    app.actions.chartStart(app.globalData.user.userId, app.globalData.me.sex, this.data.talkToUserId, this.data.talkToUserSex)
+      .then(res => {
+        that.setData({
+          talkToUserSex: 'F',
+          agree: 'W'
+        });
+        that.startPolling();
+        app.globalData.polling = false;
       });
+  },
+  startPolling(){
+    let that = this
+    app.actions.mFetchChat(app.globalData.user.userId)
+      .then(res => {
+        if(res.code == 0){
+          if(!res.data || res.data.chatStatus == '4924' || res.data.chatStatus == '101'){
+            this.setData({
+              agree: 'N'
+            });
+            return;
+          }else{
+            if(res.data.chatStatus == 2 || res.data.chatStatus == 3){
+              that.setData({
+                agree: 'Y',
+                chatData: res.data
+              });
+              return
+            }
+          }
+        }
+        setTimeout(()=>{
+          that.startPolling();
+        },2000)
+      });
+  },
+  contact(){
+    if(this.data.agree == 'W'){
+      return wx.showToast({
+        title: '请等待对方确认', icon: 'none'
+      })
+    }
+
+    if(this.data.talkToUserSex == 'F' && this.data.agree == 'N'){
+      return wx.showToast({
+        title: 'Sorry,对方暂时不想和您聊哦',icon: 'none'
+      })
+    }
+    if(this.data.talkToUserSex == 'F' && this.data.agree == 'Y'){
+      return wx.redirectTo({
+        url: '../contact/contact?talkToUserId=' + this.data.talkToUserId
+      });
+    }
+    if(app.globalData.me.sex == 'M'){
+      this.conatctConfirm();
+      // wx.navigateTo({
+      //   url: '../contact/contact?type=oneToOne&talkToUserId=' + this.data.talkToUserId + '&toUserSex=' + this.data.toUser.sex,
+      // });
     }else{
       this.goTalking();
     }
@@ -201,14 +281,15 @@ Page({
   goTalking(){
     app.actions.chartStart(app.globalData.user.userId, app.globalData.me.sex, this.data.talkToUserId, this.data.talkToUserSex)
       .then(res => {
-        console.log('12312312313123',res)
         if(res.code == 0){
-          wx.navigateTo({
-            url: '../talking/talking?roomID=' + res.data.roomId 
+          app.globalData.isContacting = true;
+          wx.redirectTo({
+            url: '../contact/contact?roomID=' + res.data.roomId 
             + '&streamId=' + res.data.streamid 
             + '&toUserId=' + res.data.toUserId 
             + '&talkToUserId=' + this.data.talkToUserId
             + '&fromUserId=' + res.data.fromUserId
+            + '&type=wait'
           });
         }
       });

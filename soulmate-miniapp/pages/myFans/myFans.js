@@ -16,24 +16,10 @@ Page({
     console.log(e.currentTarget.dataset.userid)
     let _t = this;
     let oppositeUserId = e.currentTarget.dataset.userid;
-    app.actions.chartStart(app.globalData.user.userId, 'F').then((json) => {
-      if(json.code != 0){
-        wx.showModal({
-          showCancel: false,
-          content: json.message
-        })
-        return;
-      }
-      // roomId R5ce039b7e96725678032cdd8
-      wx.navigateTo({
-        url: '../chatView/chatView?roomID=' + json.data.roomId + '&streamId=' + json.data.streamid + '&toUserId=' + oppositeUserId
-      });
-      // _t.setData({
-      //   ...json.data
-      // })
-
-      console.log(_t.data.roomId)
-    })
+    let sex = e.currentTarget.dataset.sex;
+    wx.navigateTo({
+      url: '../chatView/chatView?talkToUserId=' + oppositeUserId + '&talkToUserSex=' + sex
+    });
   },
   getFansList(){
     let _t = this;

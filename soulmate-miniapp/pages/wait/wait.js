@@ -30,7 +30,7 @@ Page({
           title: '请稍后再试',
           icon: 'none',
         })
-        wx.navigateTo({
+        wx.redirectTo({
           url: '../index/index'
         })
       }

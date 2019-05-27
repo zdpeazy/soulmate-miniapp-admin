@@ -5,13 +5,14 @@ Page({
   data: {
     avatar: '',
     sexName: '男',
-    isMan: true,
+    sexy: '',
     nickName: '',
     city: '',
     sex: [
-      { name: '男', value: '男', checked: true},
+      { name: '男', value: '男'},
       { name: '女', value: '女'}
-    ]
+    ],
+    hasAvatar: false
   },
   onLoad(){
     let _t = this;
@@ -42,7 +43,12 @@ Page({
   },
   radioChange(e){
     this.setData({
-      sexName: e.detail.value
+      sexName: e.detail.value,
+      sexy: e.detail.value,
+    })
+    wx.showToast({
+      title: '性别不可修改，请慎重填写',
+      icon: 'none'
     })
   },
   setNickName(e){
@@ -83,6 +89,9 @@ Page({
                   icon: 'success',
                   duration: 1500,
                   success() {
+                    _t.setData({
+                      hasAvatar: true
+                    })
                     _t.getUserInfo();
                   }
                 })
@@ -104,7 +113,21 @@ Page({
       wx.showToast({
         title: '请输入昵称',
         icon: 'none'
-      })
+      });
+      return;
+    }
+    if(!this.data.hasAvatar && !this.data.avatar){
+      wx.showToast({
+        title: '请上传头像',
+        icon: 'none'
+      });
+      return;
+    }
+    if(!this.data.sexy){
+      wx.showToast({
+        title: '请选择性别',
+        icon: 'none'
+      });
       return;
     }
     if (!_t.data.city) {

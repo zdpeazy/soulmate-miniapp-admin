@@ -1,21 +1,14 @@
 <view>
   <import src="../../components/tabbar.wxml" />
   <template is="tabBar" data="{{tabBar}}" />
-  <view class="bottom_img" mode='scaleToFill'>
-    <image style="width:100%;height:700rpx;" src='{{person2.headerUrl}}'></image>
-    <view class='info'>
-      <view class='name'>{{person2.nickName}}</view>
-      <view class='address'>
-        <text>{{person2.city}}</text> <text wx:if="{{person2.constellation}}">{{'/' + person2.constellation}}</text>
-      </view>
-    </view>
-  </view>
-  <view class="view_content {{hiddenimg? '' : 'hidden'}}" bindtouchend="touchendimg" bindtouchcancel='touchendimg' animation="{{move}}" mode='scaleToFill'>
-    <image style="width:100%;height:700rpx;" src='{{person1.headerUrl}}'></image>
-    <view class='info'>
-      <view class='name'>{{person1.nickName}}</view>
-      <view class='address'>
-        <text>{{person1.city}}</text> <text wx:if="{{person1.constellation}}">{{'/' + person1.constellation}}</text>
+  <view style="overflow: hidden;">
+    <view class="bottom_img" mode='scaleToFill' animation="{{move[index]}}" wx:key="{{index}}" wx:for="{{userList}}">
+      <image style="width:100%;height:700rpx;" src='{{item.headerUrl}}'></image>
+      <view class='info'>
+        <view class='name'>{{item.nickName}}</view>
+        <view class='address'>
+          <text>{{item.city}}</text> <text wx:if="{{item.constellation}}">{{'/' + item.constellation}}</text>
+        </view>
       </view>
     </view>
   </view>

@@ -12,8 +12,8 @@
       <view class='name'>性别</view>
       <radio-group class="radio-group" bindchange="radioChange">
         <label class="radio">
-          <radio value="男" checked="{{isMan}}" />男
-          <radio value="女" checked="{{!isMan}}" />女
+          <radio value="男" checked="{{sexy == '男'}}" />男
+          <radio value="女" checked="{{sexy == '女'}}" />女
         </label>
       </radio-group>
     </view>

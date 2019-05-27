@@ -1,15 +1,11 @@
 page{
+  box-sizing: border-box;
   overflow:hidden;
-}
-.container{
-  margin: 50rpx auto 0;
-  width: 700rpx;
-  height: 900rpx;
 }
 .bottom_img{
   font-size: 0;
-  margin: 10rpx auto 0;
-  position:absolute;
+  margin: 30rpx auto 0;
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
   z-index:-1;
@@ -19,13 +15,12 @@ page{
   border-radius: 8rpx;
 }
 .button_content{
-  position: relative;
+  position: absolute;
   display: flex;
   justify-content: center;
   margin-top: 30rpx;
-}
-.button_content{
-  display: flex;
+  bottom: 130rpx;
+  width: 100%;
 }
 .button_content .item{
   width: 164rpx;
@@ -36,6 +31,7 @@ page{
   border-radius: 50%;
   box-sizing: border-box;
   padding-left: 42rpx;
+  background: #ffffff;
 }
 
 .button_content .item image{
@@ -66,7 +62,6 @@ page{
 .view_content{
   margin: 30rpx auto 0;
   width: 700rpx;
-  background: #fff;
   box-shadow: 2rpx 0rpx 50rpx #ccc;
   border-radius: 8rpx;
 }

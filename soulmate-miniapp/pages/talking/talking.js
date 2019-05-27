@@ -209,6 +209,7 @@ Page({
   },
   onUnload: function () {
     clearInterval(this.count);
+    app.globalData.polling = true;
     app.globalData.isTalking = false;
     this.data.component && this.data.component.stop();
   },

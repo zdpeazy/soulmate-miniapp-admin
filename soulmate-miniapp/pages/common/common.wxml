@@ -1,5 +1,4 @@
 <!--index.wxml-->
-<live-pusher url="{{url}}" mode="RTC" autopush="true" enable-camera="false" muted="{{muted}}"></live-pusher>
 <view class="container">
   <view class="content">
     <view class="opposite">

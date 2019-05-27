@@ -47,6 +47,9 @@ Page({
       });
     })
   },
+  onUnload(){
+    app.globalData.isTalking = false;
+  },
   back(){
     wx.redirectTo({
       url: '../index/index'

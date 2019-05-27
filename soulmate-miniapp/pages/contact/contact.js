@@ -9,14 +9,20 @@ Page({
     toUserId: '',
     toUserSex: '',
     toUserImgUrls: [],
-    toUser: {}
+    toUser: {},
+    roomID: '',
+    roomName: '',
+    streamId: '',
   },
   onLoad: function (options) {
     this.setData({
       type: options.type,
       fromUserId: options.fromUserId || '',
       talkToUserId: options.talkToUserId || '',
-      toUserSex: options.toUserSex || ''
+      toUserSex: options.toUserSex || '',
+      roomID: options.roomID || '',
+      streamId: options.streamId || '',
+      toUserId: options.toUserId || ''
     })
     app.editTabBar();
     this.getToUserInfo();
@@ -27,10 +33,10 @@ Page({
     // }, 1000)
   },
   onReady(){
+    app.globalData.polling = true;
     if(this.data.type == 'oneToOne'){
       app.actions.chartStart(app.globalData.user.userId, app.globalData.me.sex, this.data.talkToUserId, this.data.toUserSex)
         .then(res => {
-          app.globalData.polling = true;
         });
     }
   },
@@ -44,27 +50,42 @@ Page({
       }
     })
   },
-  confirm(e){
+  confirmChat(e){
     let _t = this;
     let agree = e.currentTarget.dataset.res;
-    app.actions.fConfirm(this.data.fromUserId,app.globalData.user.userId, agree).then(res => {
+    if(app.globalData.me.sex == 'M'){
       if(agree == 'Y'){
-        let toUserId = res.data.fromUserId == app.globalData.user.userId ? res.data.toUserId : res.data.fromUserId;
         wx.navigateTo({
-          url: '../talking/talking?roomID=' + res.data.roomId 
-          + '&streamId=' + res.data.streamid 
-          + '&toUserId=' + toUserId
+          url: '../talking/talking?roomID=' + _t.data.roomID 
+          + '&streamId=' + _t.data.streamid 
+          + '&toUserId=' + _t.data.toUserId 
           + '&talkToUserId=' + _t.data.talkToUserId
-          + '&fromUserId=' + res.data.fromUserId,
+          + '&fromUserId=' + _t.data.fromUserId
         });
-        app.globalData.isTalking = true;
       }else{
-        app.globalData.isTalking = false;
-        app.globalData.isContacting = false;
-        app.globalData.polling = true;
-        wx.navigateBack({delta: 1});
+        wx.navigateBack({delta: 1})
       }
-    });
+    }else{
+      app.actions.fConfirm(this.data.fromUserId, app.globalData.user.userId, agree).then(res => {
+        if(agree == 'Y'){
+          let toUserId = res.data.fromUserId == app.globalData.user.userId ? res.data.toUserId : res.data.fromUserId;
+          wx.redirectTo({
+            url: '../talking/talking?roomID=' + res.data.roomID 
+            + '&streamId=' + res.data.streamid 
+            + '&toUserId=' + toUserId
+            + '&talkToUserId=' + _t.data.talkToUserId
+            + '&fromUserId=' + res.data.fromUserId,
+          });
+          app.globalData.isTalking = true;
+        }else{
+          app.globalData.isTalking = false;
+          app.globalData.isContacting = false;
+          app.globalData.polling = true;
+          wx.navigateBack({delta: 1});
+        }
+      });
+    }
+    
   },
   click(){
     let _t = this;
