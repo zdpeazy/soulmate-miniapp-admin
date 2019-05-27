@@ -77,7 +77,7 @@ App({
 
               }
             }else{ //我是被发起方
-              if(_t.globalData.me.sex == "F"){ //我是女的
+              if(_t.globalData.me.sex == "F"){ //我是女的，先确认我方不方便
                 if(_t.globalData.isContacting) return;
                 _t.globalData.isContacting = true;
                 wx.navigateTo({
@@ -85,7 +85,7 @@ App({
                   + '&type=confirm&fromUserId=' + res.data.fromUserId
                   + '&toUserId=' + res.data.toUserId,
                 });
-              }else{ //我是男的
+              }else{ //我是男的，去确认接听还是拒绝
                 if(_t.globalData.isContacting) return;
                 _t.globalData.isContacting = true;
                 wx.navigateTo({

@@ -26,11 +26,6 @@ Page({
     })
     app.editTabBar();
     this.getToUserInfo();
-    // setTimeout(() => {
-    //   wx.redirectTo({
-    //     url: '../talking/talking',
-    //   })
-    // }, 1000)
   },
   onReady(){
     app.globalData.polling = true;
@@ -89,6 +84,5 @@ Page({
   },
   click(){
     let _t = this;
-    
   }
 })

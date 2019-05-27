@@ -215,7 +215,7 @@ Page({
     wsServerURL = getApp().globalData.wsServerURL;
     testEnvironment = getApp().globalData.testEnvironment;
   },
-  conatctConfirm() {
+  conatctConfirm() {  //男的点击通话
     let that = this;
     app.actions.chartStart(app.globalData.user.userId, app.globalData.me.sex, this.data.talkToUserId, this.data.talkToUserSex)
       .then(res => {
@@ -253,29 +253,27 @@ Page({
       });
   },
   contact(){
-    if(this.data.agree == 'W'){
+    if(this.data.agree == 'W'){  
       return wx.showToast({
         title: '请等待对方确认', icon: 'none'
       })
     }
 
-    if(this.data.talkToUserSex == 'F' && this.data.agree == 'N'){
+    if(this.data.talkToUserSex == 'F' && this.data.agree == 'N'){  //需要女方同意
       return wx.showToast({
         title: 'Sorry,对方暂时不想和您聊哦',icon: 'none'
       })
     }
-    if(this.data.talkToUserSex == 'F' && this.data.agree == 'Y'){
+
+    if(this.data.talkToUserSex == 'F' && this.data.agree == 'Y'){  //需要女方同意
       return wx.redirectTo({
         url: '../contact/contact?talkToUserId=' + this.data.talkToUserId
       });
     }
     if(app.globalData.me.sex == 'M'){
-      this.conatctConfirm();
-      // wx.navigateTo({
-      //   url: '../contact/contact?type=oneToOne&talkToUserId=' + this.data.talkToUserId + '&toUserSex=' + this.data.toUser.sex,
-      // });
+      this.conatctConfirm();  //男的要等待女方确认方便
     }else{
-      this.goTalking();
+      this.goTalking();   //女的直接
     }
   },
   goTalking(){
