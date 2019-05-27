@@ -104,8 +104,9 @@ page{
   border: none;
 }
 .fans_list{
+  padding-left: 30rpx;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding-bottom: 35rpx;
 }
 .fans .item{
@@ -115,8 +116,9 @@ page{
   margin-top: -4rpx;
 }
 .fans_list_item{
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  position: relative;
 }
 .fans_view{
   width: 82rpx;

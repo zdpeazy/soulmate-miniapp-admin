@@ -155,6 +155,8 @@ Page({
     mixStreamStart: false,
     playMixStreamStart: false,
     toUserImgUrls: [],
+    topicList: [{topic: '你的童年快乐吗，为什么？'}],
+    currentTopic: 0,
     toUser: {},
     sec: '00',  //秒
     min: 0   //分
@@ -221,10 +223,27 @@ Page({
       }
     })
   },
+  nextTopic(){
+    let that = this;
+    if((this.data.currentTopic + 1) == this.data.topicList.length){
+      this.setData({
+        currentTopic: 0
+      })
+    }else{
+      this.setData({
+        currentTopic: this.data.currentTopic + 1
+      })
+    }
+  },
   getTopic(){
+    let that = this
     app.actions.getTopicList(app.globalData.user.userId, this.data.toUserId)
       .then(res => {
-
+        if(res.code == 0){
+          that.setData({
+            topicList: res.data.topicDTOList
+          })
+        }
       });
   },
   muted(){

@@ -40,6 +40,9 @@ Page({
       currentUserId: e.detail.currentItemId
     })
   },
+  stopTouchMove(){
+    return false;
+  },
   // 上下切换
   prevUser: function () {
     let _t = this;
@@ -51,11 +54,18 @@ Page({
   },
   nextUser: function () {
     let _t = this;
+    if(this.data.current+1 >= this.data.userList.length){
+      return wx.showToast({
+        title: '没有更多了',
+        icon: 'none'
+      });
+    } 
     let current = _t.data.current;
     current = current < (_t.data.userList.length - 1) ? current + 1 : 0;
     _t.setData({
-      current: current
-    })
+      current: current,
+    });
+
   },
   // 喜欢
   attention(){
@@ -69,12 +79,21 @@ Page({
           })
           return;
         }
-
-        wx.showToast({
-          title: '关注成功',
-          icon: 'success',
-          duration: 1500
+        if(_t.data.current+1 >= _t.data.userList.length){
+          return wx.showToast({
+            title: '没有更多了',
+            icon: 'none'
+          });
+        }
+        let userList = _t.data.userList;
+        let current = _t.data.current - 1 < 0 ? 0 : _t.data.current - 1;
+        userList[current] = _t.data.userList.splice(_t.data.current + 1, 1)[0]
+        _t.setData({
+          userList
         })
+        _t.setData({
+          current: current
+        });
       })
   }
 })

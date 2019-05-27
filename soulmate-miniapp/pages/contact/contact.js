@@ -45,6 +45,7 @@ Page({
     })
   },
   confirm(e){
+    let _t = this;
     let agree = e.currentTarget.dataset.res;
     app.actions.fConfirm(this.data.fromUserId,app.globalData.user.userId, agree).then(res => {
       if(agree == 'Y'){

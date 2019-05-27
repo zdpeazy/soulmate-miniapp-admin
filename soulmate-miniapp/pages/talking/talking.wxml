@@ -24,8 +24,8 @@
     </view>
     <view class='question'>
       <view class='questionInfo'>
-        <view class='question_txt'>你的童年快乐么?为什么？</view>
-        <view class="next_question">
+        <view class='question_txt'>{{topicList[currentTopic].topic}}</view>
+        <view class="next_question" bindtap="nextTopic">
           <text>下一个问题</text>
         </view>
       </view>

@@ -1,0 +1,12 @@
+<view class="container">
+  <view class="content">
+    <view class="circle-box" bindtap='searchFriend'>
+      <view class='circle1 {{animate ? "scale1" : ""}}'></view>
+      <view class='circle2 {{animate ? "scale2" : ""}}'></view>
+      <view class='circle3'>
+        <view>正在匹配</view>
+        <view>{{count}}s</view>
+      </view>
+    </view>
+  </view>
+</view>

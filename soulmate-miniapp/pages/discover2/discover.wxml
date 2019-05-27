@@ -4,15 +4,11 @@
   <template is="tabBar" data="{{tabBar}}" />
   <view class='swiper_content'>
     <swiper class='swiper_detail' 
-    interval="{{5000}}" 
     duration="{{500}}" 
-    circular="true" 
-    previous-margin="{{'35px'}}" 
-    next-margin="{{'35px'}}"
     bindchange="swiperChange" 
     current="{{current}}">
       <block wx:for="{{userList}}" wx:key="{{item.userId}}">
-        <swiper-item item-id="{{item.userId}}">
+        <swiper-item item-id="{{item.userId}}" catchtouchmove="stopTouchMove">
           <image src="{{item.headerUrl}}" class='slide-image image-view' data-src='{{item.userId}}'></image>
           <view class='info'>
             <view class='name'>{{item.nickName}}</view>
@@ -25,7 +21,7 @@
     </swiper>
   </view>
   <view class='button_content'>
-    <view class='prev item' bindtap='prevUser'>
+    <view class='prev item' bindtap='nextUser'>
       <image src='../../images/discover-prev.png'></image>
     </view>
     <view class='noLike item' bindtap='nextUser'>

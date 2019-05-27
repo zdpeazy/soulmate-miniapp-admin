@@ -117,7 +117,7 @@ Page({
   },
   searchFriend() {
     app.globalData.polling = true;
-    this.startAni();
+    //this.startAni();
     let _t = this;
     if (!_t.data.canrecord) {
       _t.openRecordSetting();
@@ -131,20 +131,23 @@ Page({
           content: json.message
         })
       }
-      wx.showLoading({
-        title: '正在匹配中',
-        mask: true
-      })
+      // wx.showLoading({
+      //   title: '正在匹配中',
+      //   mask: true
+      // })
       setTimeout(() => {
-        wx.hideLoading();
-        if(app.globalData.polling && !app.globalData.isTalking && !app.globalData.isContacting){
-          wx.showToast({
-            title: '请稍后再试',
-            icon: 'none',
-          })
-        }
+        wx.navigateTo({
+          url: '../wait/wait'
+        })
+        // wx.hideLoading();
+        // if(app.globalData.polling && !app.globalData.isTalking && !app.globalData.isContacting){
+        //   wx.showToast({
+        //     title: '请稍后再试',
+        //     icon: 'none',
+        //   })
+        // }
         //_t.gotoChatView(json.data.toUserId);
-      }, 30000);
+      }, 0);
     })
   },
   gotoChatView(oppositeUserId) {

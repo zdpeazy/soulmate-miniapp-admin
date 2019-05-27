@@ -10,11 +10,13 @@
     "pages/chatView/chatView",
     "pages/user/user",
     "pages/discover/discover",
+    "pages/discover2/discover",
     "pages/edit/edit",
     "pages/rightsCenter/rightsCenter",
     "pages/creditCard/creditCard",
     "pages/myFans/myFans",
-    "pages/webview/webview"
+    "pages/webview/webview",
+    "pages/wait/wait"
   ],
   "window": {
     "navigationBarBackgroundColor": "#fff",

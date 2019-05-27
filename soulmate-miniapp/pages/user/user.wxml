@@ -51,7 +51,7 @@
           <view class="fans_view" wx:for="{{fansList}}" wx:key="*this" wx:if="{{fansList.length > 0}}">
             <image src='{{item.firstIcon}}'></image>
           </view>
-          <view class="fans_view">
+          <view class="fans_view" style="position:absolute;right:0;">
             <image src='../../images/user-fans-more.png'></image>
           </view>
         </view>
